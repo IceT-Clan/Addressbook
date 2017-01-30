@@ -101,15 +101,20 @@ def main():
     current_preset = "default"
     url = NAMEFAKE_URL.format(args.origin, args.gender)
     fake_names = list()
-    while args.count > 0:
-        args.count -= 1
-        request = requests.get(url)
+    count = args.count
+    while count > 0:
+        try:
+            request = requests.get(url)
+        except requests.exceptions.ConnectionError as e:
+            continue
+        count -= 1
         data = json.JSONDecoder().decode(request.text)
         identity = dict()
         for entry in data:
             if entry in ID_PRESETS[current_preset]:
                 identity[entry] = toString(data[entry]).replace('\n', '')
-        logger.info("Got {}".format(identity["name"]))
+        logger.info("Got {} ({}/{})".format(identity["name"],
+                                            args.count - count, args.count))
         # concat email
         if "email_u" and "email_d" in ID_PRESETS[current_preset]:
             logger.debug("Concatting email...")
