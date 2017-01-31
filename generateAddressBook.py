@@ -7,6 +7,10 @@ import json
 import csv
 import sys
 import codecs
+import time
+import threading
+from queue import Queue
+import colorama
 
 
 # -------------- Constant Variables ------------- #
@@ -30,6 +34,9 @@ ID_PRESETS = {
 }
 
 NAMEFAKE_URL = "http://api.namefake.com/{}/{}"
+lock = threading.Lock()
+q = Queue()
+count = 0
 
 
 # -------------- Arguments ------------- #
@@ -95,40 +102,76 @@ def toString(var):
     return string
 
 
+def getIdentityFromServer(url, fieldnames):
+    try:
+        request = requests.get(url)
+    except requests.exceptions.ConnectionError as e:
+        return None
+    data = json.JSONDecoder().decode(request.text)
+    identity = dict()
+    for entry in data:
+        if entry in fieldnames:
+            identity[entry] = toString(data[entry]).replace('\n', '')
+
+    # concat email
+    if "email_u" and "email_d" in fieldnames:
+        logger.debug("Concatting email...")
+        email = "{}@{}".format(identity["email_u"], identity["email_d"])
+        del identity["email_u"]
+        del identity["email_d"]
+        identity["email"] = email
+
+    return identity
+
+
+def workIdentity(url, fieldnames, fake_names):
+    while True:
+        identity = getIdentityFromServer(url, fieldnames)
+        if not identity:
+            continue
+        global count
+        count += 1
+        logger.info("Got {} IDs of {} IDs {}%: {}".
+                    format(count,
+                           args.count,
+                           str(count / args.count * 100)[:5],
+                           identity["name"][:40]))
+        logger.debug(repr(identity))
+        break
+    fake_names.append(identity)
+
+
+def worker():
+    while True:
+        url, fieldnames, fake_names = q.get()
+        workIdentity(url, fieldnames, fake_names)
+        q.task_done()
+
+
 def main():
     # get fake names
     logger.info("Getting {} identities".format(args.count))
     current_preset = "default"
     url = NAMEFAKE_URL.format(args.origin, args.gender)
     fake_names = list()
-    count = args.count
-    while count > 0:
-        try:
-            request = requests.get(url)
-        except requests.exceptions.ConnectionError as e:
-            continue
-        count -= 1
-        data = json.JSONDecoder().decode(request.text)
-        identity = dict()
-        for entry in data:
-            if entry in ID_PRESETS[current_preset]:
-                identity[entry] = toString(data[entry]).replace('\n', '')
-        logger.info("Got {} ({}/{})".format(identity["name"],
-                                            args.count - count, args.count))
-        # concat email
-        if "email_u" and "email_d" in ID_PRESETS[current_preset]:
-            logger.debug("Concatting email...")
-            email = "{}@{}".format(identity["email_u"], identity["email_d"])
-            del identity["email_u"]
-            del identity["email_d"]
-            identity["email"] = email
-        # fix display of blood type when \u2212 cannot be understood
-        if "blood" in ID_PRESETS[current_preset] and False:
-            logger.debug("Fixing \\u2212")
-            blood = toString(identity["blood"]).replace(u"\u2212", "-")
-            identity["blood"] = blood
-        logger.debug(repr(identity))
-        fake_names.append(identity)
+    # count = args.count
+    fieldnames = ID_PRESETS[current_preset]
+
+    for i in range(404):
+        t = threading.Thread(target=worker)
+        t.daemon = True
+        t.start()
+
+    time.perf_counter()
+
+    for i in range(args.count):
+        q.put((url, fieldnames, fake_names))
+
+    q.join()
+    time_needed = time.perf_counter()
+
+    # for count in range(args.count):
+    #     workIdentity(url, fieldnames, fake_names, count)
 
     # concat email
     ID_PRESETS[current_preset].remove("email_u")
@@ -137,7 +180,6 @@ def main():
     # output fakenames to file
     with open(args.output, 'w',
               encoding=encoding, errors=encoding_mode) as csvfile:
-        fieldnames = ID_PRESETS[current_preset]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         # writer.writerows(fake_names)
@@ -148,6 +190,13 @@ def main():
             line = line[:-1] + '\n'
             csvfile.write(line)
 
+    logger.info("""Statistics:
+                   Time needed: {}
+                   Time per identity: {} s""".
+                format(time.strftime("%Hh %Mm %Ss", time.gmtime(time_needed)),
+                       str(time_needed / args.count)[:6]))
+
 
 if __name__ == '__main__':
+    colorama.init()
     main()
