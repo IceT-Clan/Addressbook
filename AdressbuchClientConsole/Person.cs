@@ -8,19 +8,20 @@ namespace Adressbuch
 {
     class Person
     {
-        private string name;            //
-        private string address;         //
-        private DateTime birth_data;    //
-        private string phone_h;         //
-        private string phone_w;         //
-        private string email;           //
-        private string color;
-        private int height;
-        private int weight;
-        private string blood;
-        private string eye;
-        private string hair;
-        private string hair_color;
+        private string name;              
+        private string address;           
+        private DateTime birth_data;      
+        private string phone_h;           
+        private string phone_w;           
+        private string email;             
+        private string color;             
+        private int height;               
+        private int weight;               
+        private string blood;             
+        private string eye;               
+        private string hair;              
+        private string hair_color;        
+        private int ID;                   
 
         public string Name {
             get {
@@ -140,6 +141,16 @@ namespace Adressbuch
             set { hair_color = value; }
         }
 
+        public int ID1 {
+            get {
+                return ID;
+            }
+
+            set {
+                ID = value;
+            }
+        }
+
         public Person(string name,
                       string address,
                       DateTime birth_data,
@@ -151,7 +162,8 @@ namespace Adressbuch
                       int weight,
                       string blood,
                       string eye,
-                      string hair)
+                      string hair, 
+                      int id)
         {
             this.name = name;
             this.address = address;
@@ -165,11 +177,13 @@ namespace Adressbuch
             this.blood = blood;
             this.eye = eye;
             this.hair = hair;
+            this.ID = id;
         }
 
         public override String ToString()
         {
             string formatted = "";
+            formatted += "ID: " + this.ID + "\n";
             formatted += "Name: " + this.name + "\n";
             formatted += "Address: " + this.address + "\n";
             formatted += "Phone Home: " + this.phone_h + "\n";

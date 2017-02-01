@@ -15,7 +15,7 @@ namespace Adressbuch {
         ADDPERSON,          //creates a person
         DELETEPERSON,       //deletes with generated ID
         DELETEIDS,          //delete all sent IDs
-        DELETEALLPERSONS    //deleteEVERYTHING
+        DELETEALLPERSONS    //delete EVERYTHING
     }
 
     enum ClientInfo {
