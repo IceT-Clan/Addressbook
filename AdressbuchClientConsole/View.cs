@@ -58,7 +58,7 @@ namespace Adressbuch
                 Console.WriteLine("Adresse: "+ p.Address);
                 Console.WriteLine("Phone Home: " + p.Phone_h + " | Phone Work: " + p.Phone_w);
                 Console.WriteLine("Email: " + p.Email);
-                Console.WriteLine("Skin: " + p.Color +"#noracist");
+                Console.WriteLine("Skin: " + p.Color + " #noracist");
                 Console.WriteLine("Height: " + p.Height + " | Weight: " + p.Weight);
                 Console.WriteLine("Blood: " + p.Blood +" | Eye: " + p.Eye);
                 Console.WriteLine("Hair: " + p.Hair +" | Haircolor: " + p.Hair_color);
