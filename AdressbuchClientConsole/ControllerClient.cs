@@ -149,7 +149,30 @@ namespace Adressbuch
 
         private void holeAdressbuch()
         {
+            client = new ClientSocket(host, port);
+            try
+            {
+                client.connect();
+                client.write((int)ServerCommand.GETALLPERSONS);
+                int count = client.read();
 
+                if (count >= 1)
+                {
+                    List<Person> erg = new List<Person>();
+                    for (int i = 0; i < count; i++)
+                    {
+                        string person = client.readLine();
+                        Person p = convertString2Person(person);
+                        erg.Add(p);
+                    }
+                    view.aktualisiereSicht(erg);
+                }
+                client.close();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         private Person convertString2Person(string _p)
@@ -159,7 +182,7 @@ namespace Adressbuch
 
             // Geburtsdatum umformen, um ein DateTime-Objekt
             // zu erstellen
-            char[] trenner = { '.' };
+            char[] trenner = { ',' };
             string[] geburtsdatum = daten[3].Split(trenner);
 
             int tag = Convert.ToInt32(geburtsdatum[0]);
@@ -169,7 +192,7 @@ namespace Adressbuch
             DateTime datum = new DateTime(jahr, monat, tag);
 
             // Person-Objekt erstellen und der Liste hinzufügen
-            Person p = new Person(daten[0], daten[1], daten[2], datum);
+            Person p = new Person(daten[0], daten[1], datum, daten[2], daten[3], daten[4], daten[5], Int32.Parse(daten[6]), Int32.Parse(daten[7]), daten[8], daten[9], daten[10]);
 
             return p;
         }
