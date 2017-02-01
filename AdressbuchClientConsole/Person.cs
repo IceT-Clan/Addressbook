@@ -24,57 +24,46 @@ namespace Adressbuch {
             get { return this.name; }
             set { this.name = value; }
         }
-
         public String Address {
             get { return this.address; }
             set { this.address = value; }
         }
-
         public DateTime Birth_data {
             get { return this.birth_data; }
             set { this.birth_data = value; }
         }
-
         public String Phone_h {
             get { return this.phone_h; }
             set { this.phone_h = value; }
         }
-
         public String Phone_w {
             get { return this.phone_w; }
             set { this.phone_w = value; }
         }
-
         public String Email {
             get { return this.email; }
             set { this.email = value; }
         }
-
         public String Color {
             get { return this.color; }
             set { this.color = value; }
         }
-
         public Int32 Height {
             get { return this.height; }
             set { this.height = value; }
         }
-
         public Int32 Weight {
             get { return this.weight; }
             set { this.weight = value; }
         }
-
         public String Blood {
             get { return this.blood; }
             set { this.blood = value; }
         }
-
         public String Eye {
             get { return this.eye; }
             set { this.eye = value; }
         }
-
         public String Hair {
             get { return this.hair; }
             set { this.hair = value; }
