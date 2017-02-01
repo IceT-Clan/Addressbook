@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Adressbuch {
     class Person {
+<<<<<<< HEAD
         private string name;           
         private string address;        
         private DateTime birth_data;   
@@ -13,6 +14,15 @@ namespace Adressbuch {
         private string phone_w;        
         private string email;          
         private string color;                    
+=======
+        private string name;            //
+        private string address;         //
+        private DateTime birth_data;    //
+        private string phone_h;         //
+        private string phone_w;         //
+        private string email;           //
+        private string color;
+>>>>>>> b1176b015caaf4d4370bcc91b3568a06af33c5bc
         private int height;
         private int weight;
         private string blood;
@@ -174,7 +184,10 @@ namespace Adressbuch {
             formatted += "Blood: " + this.blood + "\n";
             formatted += "Eye Color: " + this.eye + "\n";
             formatted += "Hair: " + this.hair + "\n";
+<<<<<<< HEAD
             formatted += "Hair Colro: " + this.hair_color + "\n";
+=======
+>>>>>>> b1176b015caaf4d4370bcc91b3568a06af33c5bc
 
             return formatted;
         }
