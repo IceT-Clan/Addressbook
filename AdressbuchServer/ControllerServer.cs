@@ -76,7 +76,7 @@ namespace Adressbuch
                         break;
 
                     case ServerCommand.GETALLPERSONS:
-                        // holeAllePersonen()
+                        holeAllePersonen(client);
                         break;
 
                     case ServerCommand.ADDPERSON:
@@ -129,9 +129,22 @@ namespace Adressbuch
             }
         }
 
-        private void holeAllePersonen()
+        private void holeAllePersonen(ClientSocket _c)
         {
+            List<Person> erg = model.getall();
+            _c.write(erg.Count);
+            if (erg.Count > 0)
+            {
+                string separator = ";";
+                foreach (Person p in erg)
+                {
+                    string data = p.Vorname + separator + p.Name + separator;
+                    data += p.Plz + separator + p.Geburtstag.Date.ToShortDateString();
 
+                    _c.write(data + "\n");
+                    Thread.Sleep(100);
+                }
+            }
         }
 
         private void fügeHinzuNeuePerson()

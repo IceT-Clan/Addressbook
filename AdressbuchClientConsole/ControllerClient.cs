@@ -149,7 +149,30 @@ namespace Adressbuch
 
         private void holeAdressbuch()
         {
+            client = new ClientSocket(host, port);
+            try
+            {
+                client.connect();
+                client.write((int)ServerCommand.GETALLPERSONS);
+                int count = client.read();
 
+                if (count >= 1)
+                {
+                    List<Person> erg = new List<Person>();
+                    for (int i = 0; i < count; i++)
+                    {
+                        string person = client.readLine();
+                        Person p = convertString2Person(person);
+                        erg.Add(p);
+                    }
+                    view.aktualisiereSicht(erg);
+                }
+                client.close();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         private Person convertString2Person(string _p)

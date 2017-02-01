@@ -53,6 +53,17 @@ namespace Adressbuch
 
         }
 
+        public List<Person> getall()
+        {
+            List<Person> erg = new List<Person>();
+            foreach (Person p in personen)
+            {
+                Person newPerson = new Person(p.Vorname, p.Name, p.Plz, p.Geburtstag);
+                erg.Add(newPerson);
+            }
+            return erg;
+        }
+
         // Liest die Datei adressbuch.txt und erstellt Person-Objekte
         private bool leseAdressbuchDatei()
         {
