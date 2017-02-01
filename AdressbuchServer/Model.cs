@@ -5,43 +5,70 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Adressbuch
-{
+namespace Adressbuch {
+    enum SearchType {
+        BASIC_REGEX,
+        REGEX,
+        PERL_REGEX,
+        FIXED_STRING
+    }
+
     // Diese Klasse stellt das Datenmodell für das Adressbuch
     // und notwendige Methoden für die Datenverarbeitung
     // zur Verfügung
-    class Model
-    {
+    class Model {
         private string _path;
-        // Objektvariable für Zugriff auf Liste
-        private List<Person> personen;
+        private List<Person> _persons;
 
-        public Model(string path)
-        {
-            // Leere Liste erstellen
-            personen = new List<Person>();
-
-            // Datensätze aus adressbuch.txt lesen,
-            // Person-Objekte erstellen und
-            // der Liste hinzufügen
-
-            leseAdressbuchDatei();
+        public Model(string path) {
+            _persons = new List<Person>();
 
             _path = path;
+            readAddressbook();
         }
 
-        public List<Person> suchePersonen(string wert)
-        {
-            // leere Ergebnisliste erstellen
+        public List<Person> search(string pattern, SearchType searchType=SearchType.FIXED_STRING) {
+            List<Person> results = new List<Person>();
+            switch (searchType) {
+                case SearchType.BASIC_REGEX:
+                    throw new NotImplementedException();
+                    break;
+                case SearchType.REGEX:
+                    throw new NotImplementedException();
+                    break;
+                case SearchType.PERL_REGEX:
+                    throw new NotImplementedException();
+                    break;
+                case SearchType.FIXED_STRING:
+
+                    break;
+                default:
+                    throw new NotImplementedException();
+                    break;
+            }
+
+            return results;
+        }
+
+        private List<Person> search_fixed_string(string pattern) {
+            List<Person> result = new List<Person>();
+            foreach (Person person in _persons) {
+                if (person.Name.Contains(pattern) ||
+                    false) {
+                    result.Add(person);
+                } 
+            }
+            return result;
+        }
+
+        public List<Person> suchePersonen(string wert) {
             List<Person> ergebnis = new List<Person>();
 
-            foreach (Person p in personen)
-            {
+            foreach (Person p in _persons) {
                 if (p.Vorname.Contains(wert) ||
                     p.Name.Contains(wert) ||
                     p.Plz.Contains(wert)
-                   )
-                {
+                   ) {
                     Person newPerson = new Person(p.Vorname,
                                                   p.Name,
                                                   p.Plz,
@@ -55,40 +82,22 @@ namespace Adressbuch
 
         }
 
-        // Liest die Datei adressbuch.txt und erstellt Person-Objekte
-        private bool leseAdressbuchDatei()
-        {
-            // Hiermit könnte Erfolg oder Misserfolg der
-            // Methode zurückgemeldet werden
-            // Besser wäre, bei Misserfolg eine Ausnahme zu werfen
-            bool rc = true;
-
-            if (System.IO.File.Exists(_path) == false)
-            {
-                Console.WriteLine("No"+ _path+ "found!\n");
+        private void readAddressbook() {
+            if (System.IO.File.Exists(_path) == false) {
+                Console.WriteLine("No" + _path + "found!\n");
                 File.Create(_path);
             }
 
-            // automatische Freigabe der Ressource mittels using
-            using (StreamReader sr = new StreamReader(_path))
-            {
-                string zeile;
-                // Lesen bis Dateiende, Zeile für Zeile
-                while ((zeile = sr.ReadLine()) != null)
-                {
-                    // Person-Objekt erstellen anhand gelesener Zeile
-                    Person p = convertString2Person(zeile);
-
-                    // Person-Objekt in die Liste einfügen
-                    personen.Add(p);
+            using (StreamReader reader = new StreamReader(_path)) {
+                string line;
+                while ((line = reader.ReadLine()) != null) {
+                    _persons.Add(new Person(line));
                 }
             }
 
-            return rc;
         }
 
-        private Person convertString2Person(string _p)
-        {
+        private Person convertString2Person(string _p) {
             char[] separator = { ';' };
             string[] daten = _p.Split(separator);
 
@@ -109,8 +118,7 @@ namespace Adressbuch
             return p;
         }
 
-        private string convertPerson2String(Person _p)
-        {
+        private string convertPerson2String(Person _p) {
             string person = "";
 
             // Hier wird ein Person-Objekt in den String umgeformt
@@ -120,21 +128,10 @@ namespace Adressbuch
 
 
         // Schreibt die Person-Objekte in die Datei adressbuch.txt
-        private bool schreibeAdressbuchDatei()
-        {
+        private bool schreibeAdressbuchDatei() {
             bool rc = false;
 
             return rc;
-        }
-
-        // Dient nur zu Testzwecken
-        // Zeigt das Adressbuch auf der Server-Konsole
-        private void zeigeAdressbuch()
-        {
-            foreach (Person p in personen)
-            {
-                Console.WriteLine(p.Vorname + " : " + p.Name + " : " + p.Plz + " : " + p.Geburtstag.ToShortDateString());
-            }
         }
     }
 }
