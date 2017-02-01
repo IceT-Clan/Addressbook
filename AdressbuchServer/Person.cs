@@ -117,6 +117,25 @@ namespace Adressbuch {
             this.hair_color = person.hair_color;
         }
 
+        public Person(String csvline, Char seperator = '\n') {
+            Char[] friendlySeperator = { seperator };
+            String[] entries = csvline.Split(friendlySeperator, StringSplitOptions.RemoveEmptyEntries);
+
+            this.name = entries[0];
+            this.address = entries[1];
+            this.birth_data = DateTime.Parse(entries[2]); // TODO make sure parsing works
+            this.phone_h = entries[3];
+            this.phone_w = entries[4];
+            this.email = entries[5];
+            this.color = entries[6];
+            this.height = Convert.ToInt32(entries[7]);
+            this.weight = Convert.ToInt32(entries[8]);
+            this.blood = entries[9];
+            this.eye = entries[10];
+            this.hair = entries[11];
+            this.hair_color = entries[12];
+        }
+
         public override String ToString() {
             String formatted = "";
             formatted += "Name: " + this.name + "\n";
