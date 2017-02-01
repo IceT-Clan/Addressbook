@@ -6,10 +6,8 @@ using System.Threading;
 using __ServerSocket__;
 using __ClientSocket__;
 
-namespace Adressbuch
-{
-    enum ServerCommand
-    {
+namespace Adressbuch {
+    enum ServerCommand {
         NONE,
         FINDPERSONS,
         GETALLPERSONS,
@@ -17,41 +15,25 @@ namespace Adressbuch
         DELETEPERSON
     }
 
-    enum ClientInfo
-    {
+    enum ClientInfo {
         NOMOREDATA,
         MOREDATA
     }
 
-    class ControllerServer
-    {
+    class ControllerServer {
         private Model model;
         private ServerSocket server;
 
-        public ControllerServer(int _port)
-        {
-            model = new Model();
-
-            // Hier sollte eine Ausnahmebehandlung stattfinden
-            // für den Fall, dass der Port bereits anderweitig
-            // vergeben ist
+        public ControllerServer(int _port, string _addrbk_file) {
+            model = new Model(_addrbk_file);
             server = new ServerSocket(_port);
-
-            // Testzwecke
-            // List<Person> liste = model.suchePersonen("6");
-            // Console.WriteLine(liste.Count);
-
         }
 
-        // Mit dieser Methode wird der Controller gestartet
-        // und damit auch der Serverdienst
-        public void start()
-        {
+        public void start() {
             Console.WriteLine("Server gestartet!");
 
             // Server kann nicht gestoppt werden
-            while (true)
-            {
+            while (true) {
                 // ServerSocket in listen-Modus
                 ClientSocket client = new ClientSocket(server.accept());
 
@@ -66,25 +48,24 @@ namespace Adressbuch
                 ServerCommand command = (ServerCommand)client.read();
 
                 // Kommando wird ausgewertet
-                switch (command)
-                {
+                switch (command) {
                     case ServerCommand.NONE:
                         break;
 
                     case ServerCommand.FINDPERSONS:
-                        suchePersonen(client);
+                        search(client);
                         break;
 
                     case ServerCommand.GETALLPERSONS:
-                        // holeAllePersonen()
+                        getAllEntries(client);
                         break;
 
                     case ServerCommand.ADDPERSON:
-                        // fügeHinzuNeuePerson()
+                        addNewEntry(client);
                         break;
 
                     case ServerCommand.DELETEPERSON:
-                        // loeschePerson()
+                        remEntry(client);
                         break;
 
                     default:
@@ -100,47 +81,37 @@ namespace Adressbuch
 
         }
 
-        private void suchePersonen(ClientSocket _c)
-        {
+        private void search(ClientSocket _client) {
             // Lese Suchstring vom Client
-            string suchbegriff = _c.readLine();
+            string suchbegriff = _client.readLine();
 
             // Speichere die Ergebnisse in einer Liste
-            List<Person> ergebnis = model.suchePersonen(suchbegriff);
+            List<Person> ergebnis = model.search(suchbegriff);
 
             // Sende Client die Anzahl der gefundenen Personen
-            _c.write(ergebnis.Count);
+            _client.write(ergebnis.Count);
 
             // Sende nun die Personendaten
-            if (ergebnis.Count > 0)
-            {
-                string separator = ";";
-
-                foreach (Person p in ergebnis)
-                {
-                    string data = p.Vorname + separator + p.Name + separator;
-                    data += p.Plz + separator + p.Geburtstag.Date.ToShortDateString();
+            if (ergebnis.Count > 0) {
+                foreach (Person p in ergebnis) {
+                    string data = p.ToString();
 
                     // Testausgabe
                     Console.WriteLine(data);
-                    _c.write(data + "\n");
-                    Thread.Sleep(100);
+                    _client.write(data + "\n");
                 }
             }
         }
 
-        private void holeAllePersonen()
-        {
+        private void getAllEntries(ClientSocket _client) {
 
         }
 
-        private void fügeHinzuNeuePerson()
-        {
+        private void addNewEntry(ClientSocket _client) {
 
         }
 
-        private void loeschePerson()
-        {
+        private void remEntry(ClientSocket _client) {
 
         }
     }

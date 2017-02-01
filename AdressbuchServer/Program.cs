@@ -4,38 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Adressbuch
-{
-    // Das ist der Server
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            // Standardport ist 55555
+namespace Adressbuch {
+    class Program {
+        static void Main(string[] args) {
             int port = 55555;
+            string adressbook = "adressbook.csv";
 
-            // Eventuelle Argumente durchlaufen
-            if (args.Length > 1)
-            {
-                foreach (string arg in args)
-                {
-                    // Argument: /port:12345
-                    char[] separator = { ':' };
-                    string[] argument = arg.Split(separator);
-
-                    switch (argument[0])
-                    {
-                        case "/port":
-                            port = Convert.ToInt32(argument[1]);
-                            break;
-                        default:
-                            break;
-                    }
-
-                }
+            if (args.Length < 2) {
+                Console.WriteLine("Usage: <port> <adressbook>");
             }
 
-            ControllerServer c = new ControllerServer(port);
+            port = Convert.ToInt16(args[0]);
+            adressbook = args[1];
+
+            ControllerServer c = new ControllerServer(port, adressbook);
             c.start();
 
         }
