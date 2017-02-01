@@ -8,14 +8,14 @@ namespace Adressbuch
 {
     class Person
     {
-        private string name;            //
-        private string address;         //
-        private DateTime birth_data;    //
-        private string phone_h;         //
-        private string phone_w;         //
-        private string email;           //
+        private string name;           
+        private string address;        
+        private DateTime birth_data;   
+        private string phone_h;        
+        private string phone_w;        
+        private string email;          
         private string color;
-        private int height;
+        private int height;                  
         private int weight;
         private string blood;
         private string eye;
@@ -181,6 +181,7 @@ namespace Adressbuch
             formatted += "Blood: " + this.blood + "\n";
             formatted += "Eye Color: " + this.eye + "\n";
             formatted += "Hair: " + this.hair + "\n";
+            formatted += "Hair Colro: " + this.hair_color + "\n";
 
             return formatted;
         }

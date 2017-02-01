@@ -37,15 +37,24 @@ namespace Adressbuch
 
             foreach (Person p in personen)
             {
-                if (p.Vorname.Contains(wert) ||
-                    p.Name.Contains(wert) ||
-                    p.Plz.Contains(wert)
+                if (p.Name.Contains(wert) ||
+                    p.Address.Contains(wert)
                    )
                 {
-                    Person newPerson = new Person(p.Vorname,
+                    Person newPerson = new Person(
                                                   p.Name,
-                                                  p.Plz,
-                                                  p.Geburtstag
+                                                  p.Address,
+                                                  p.Birth_data,
+                                                  p.Phone_h,
+                                                  p.Phone_w,
+                                                  p.Email,
+                                                  p.Color,
+                                                  p.Height,
+                                                  p.Weight,
+                                                  p.Blood,
+                                                  p.Eye,
+                                                  p.Hair,
+                                                  p.Hair_color
                                                  );
                     ergebnis.Add(newPerson);
                 }
@@ -60,7 +69,7 @@ namespace Adressbuch
             List<Person> erg = new List<Person>();
             foreach (Person p in personen)
             {
-                Person newPerson = new Person(p.Vorname, p.Name, p.Plz, p.Geburtstag);
+                Person newPerson = new Person(p.Name, p.Address, p.Birth_data);
                 erg.Add(newPerson);
             }
             return erg;
@@ -115,7 +124,7 @@ namespace Adressbuch
             DateTime datum = new DateTime(jahr, monat, tag);
 
             // Person-Objekt erstellen und der Liste hinzufügen
-            Person p = new Person(daten[0], daten[1], daten[2], datum);
+            Person p = new Person(daten[0], daten[1], datum, daten[2], daten[3], daten[4], daten[5], Int32.Parse(daten[6]), Int32.Parse(daten[7]), daten[8], daten[9], daten[10]);
 
             return p;
         }
@@ -144,7 +153,7 @@ namespace Adressbuch
         {
             foreach (Person p in personen)
             {
-                Console.WriteLine(p.Vorname + " : " + p.Name + " : " + p.Plz + " : " + p.Geburtstag.ToShortDateString());
+                Console.WriteLine( p.Name + " : " + p.Address + " : " + p.Birth_data.ToShortDateString());
             }
         }
     }

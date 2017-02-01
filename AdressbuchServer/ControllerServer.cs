@@ -114,8 +114,8 @@ namespace Adressbuch {
                 string separator = ";";
                 foreach (Person p in erg)
                 {
-                    string data = p.Vorname + separator + p.Name + separator;
-                    data += p.Plz + separator + p.Geburtstag.Date.ToShortDateString();
+                    string data = p.Name + separator;
+                    data += p.Address + separator + p.Birth_data.Date.ToShortDateString() + p.Phone_h + separator + p.Phone_w + separator + p.Email + separator + p.Color + separator + p.Height + separator + p.Weight + separator + p.Blood + separator + p.Eye + separator + p.Hair + separator + p.Hair_color;
                     _client.write(data + "\n");
                     Thread.Sleep(100);
                 }
