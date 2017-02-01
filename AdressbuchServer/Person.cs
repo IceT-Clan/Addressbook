@@ -6,225 +6,86 @@ using System.Threading.Tasks;
 
 namespace Adressbuch {
     class Person {
-<<<<<<< HEAD
-        private string name;
-        private string address;
+        private String name;
+        private String address;
         private DateTime birth_data;
-        private string phone_h;
-        private string phone_w;
-        private string email;
-        private string color;
-=======
-<<<<<<< HEAD
-        private string name;           
-        private string address;        
-        private DateTime birth_data;   
-        private string phone_h;        
-        private string phone_w;        
-        private string email;          
-        private string color;                    
-=======
-        private string name;            //
-        private string address;         //
-        private DateTime birth_data;    //
-        private string phone_h;         //
-        private string phone_w;         //
-        private string email;           //
-        private string color;
->>>>>>> b1176b015caaf4d4370bcc91b3568a06af33c5bc
->>>>>>> 6421fdd3bda628fa655f56055c07ece24ed6dd0c
-        private int height;
-        private int weight;
-        private string blood;
-        private string eye;
-        private string hair;
-<<<<<<< HEAD
+        private String phone_h;
+        private String phone_w;
+        private String email;
+        private String color;
+        private Int32 height;
+        private Int32 weight;
+        private String blood;
+        private String eye;
+        private String hair;
+        private String hair_color;
 
-        public string Name { get => this.name; set => this.name = value; }
-        public string Address { get => this.address; set => this.address = value; }
-        public DateTime Birth_data { get => this.birth_data; set => this.birth_data = value; }
-        public string Phone_h { get => this.phone_h; set => this.phone_h = value; }
-        public string Phone_w { get => this.phone_w; set => this.phone_w = value; }
-        public string Email { get => this.email; set => this.email = value; }
-        public string Color { get => this.color; set => this.color = value; }
-        public int Height { get => this.height; set => this.height = value; }
-        public int Weight { get => this.weight; set => this.weight = value; }
-        public string Blood { get => this.blood; set => this.blood = value; }
-        public string Eye { get => this.eye; set => this.eye = value; }
-        public string Hair { get => this.hair; set => this.hair = value; }
-
-        public Person(string name,
-                      string address,
-                      DateTime birth_data,
-                      string phone_h,
-                      string phone_w,
-                      string email,
-                      string color,
-                      int height,
-                      int weight,
-                      string blood,
-                      string eye,
-                      string hair) {
-            this.name = name;
-            this.address = address;
-            this.birth_data = birth_data;
-            this.phone_h = phone_h;
-            this.phone_w = phone_w;
-            this.email = email;
-            this.color = color;
-            this.height = height;
-            this.weight = weight;
-            this.blood = blood;
-            this.eye = eye;
-            this.hair = hair;
+        public String Name {
+            get { return this.name; }
+            set { this.name = value; }
         }
-
-        public override String ToString() {
-            string formatted = "";
-            formatted += "Name: " + this.name + "\n";
-            formatted += "Address: " + this.address + "\n";
-            formatted += "Phone Home: " + this.phone_h + "\n";
-            formatted += "Phone Work: " + this.phone_w + "\n";
-            formatted += "Email: " + this.email + "\n";
-            formatted += "Color: " + this.color + "\n";
-            formatted += "Height: " + this.height + "\n";
-            formatted += "Weight: " + this.weight + "\n";
-            formatted += "Blood: " + this.blood + "\n";
-            formatted += "Eye Color: " + this.eye + "\n";
-            formatted += "Hair: " + this.hair + "\n";
-
-            return formatted;
+        public String Address {
+            get { return this.address; }
+            set { this.address = value; }
         }
-=======
-        private string hair_color;
-
-        public string Name {
-            get {
-                return name;
-            }
-
-            set {
-                name = value;
-            }
-        }
-
-        public string Address {
-            get {
-                return address;
-            }
-
-            set {
-                address = value;
-            }
-        }
-
         public DateTime Birth_data {
-            get {
-                return birth_data;
-            }
-
-            set {
-                birth_data = value;
-            }
+            get { return this.birth_data; }
+            set { this.birth_data = value; }
         }
-
-        public string Phone_h {
-            get {
-                return phone_h;
-            }
-
-            set {
-                phone_h = value;
-            }
+        public String Phone_h {
+            get { return this.phone_h; }
+            set { this.phone_h = value; }
         }
-
-        public string Phone_w {
-            get {
-                return phone_w;
-            }
-
-            set {
-                phone_w = value;
-            }
+        public String Phone_w {
+            get { return this.phone_w; }
+            set { this.phone_w = value; }
         }
-
-        public string Email {
-            get {
-                return email;
-            }
-
-            set {
-                email = value;
-            }
+        public String Email {
+            get { return this.email; }
+            set { this.email = value; }
         }
-
-        public string Color {
-            get {
-                return color;
-            }
-
-            set {
-                color = value;
-            }
+        public String Color {
+            get { return this.color; }
+            set { this.color = value; }
         }
-
-        public int Height {
-            get {
-                return height;
-            }
-
-            set {
-                height = value;
-            }
+        public Int32 Height {
+            get { return this.height; }
+            set { this.height = value; }
         }
-
-        public int Weight {
-            get {
-                return weight;
-            }
-
-            set {
-                weight = value;
-            }
+        public Int32 Weight {
+            get { return this.weight; }
+            set { this.weight = value; }
         }
-
-        public string Blood {
-            get {
-                return blood;
-            }
-
-            set {
-                blood = value;
-            }
+        public String Blood {
+            get { return this.blood; }
+            set { this.blood = value; }
         }
-
-        public string Eye {
-            get { return eye; }
-
-            set { eye = value; }
+        public String Eye {
+            get { return this.eye; }
+            set { this.eye = value; }
         }
-
-        public string Hair {
+        public String Hair {
             get { return this.hair; }
             set { this.hair = value; }
         }
-        public string Hair_color {
-            get { return hair_color; }
-            set { hair_color = value; }
+        public String Hair_color {
+            get { return this.hair_color; }
+            set { this.hair_color = value; }
         }
 
-        public Person(string name,
-                      string address,
+        public Person(String name,
+                      String address,
                       DateTime birth_data,
-                      string phone_h,
-                      string phone_w,
-                      string email,
-                      string color,
-                      int height,
-                      int weight,
-                      string blood,
-                      string eye,
-                      string hair) {
+                      String phone_h,
+                      String phone_w,
+                      String email,
+                      String color,
+                      Int32 height,
+                      Int32 weight,
+                      String blood,
+                      String eye,
+                      String hair,
+                      String hair_color) {
             this.name = name;
             this.address = address;
             this.birth_data = birth_data;
@@ -237,10 +98,46 @@ namespace Adressbuch {
             this.blood = blood;
             this.eye = eye;
             this.hair = hair;
+            this.hair_color = hair_color;
+        }
+
+        public Person(Person person) {
+            this.name = person.name;
+            this.address = person.address;
+            this.birth_data = person.birth_data;
+            this.phone_h = person.phone_h;
+            this.phone_w = person.phone_w;
+            this.email = person.email;
+            this.color = person.color;
+            this.height = person.height;
+            this.weight = person.weight;
+            this.blood = person.blood;
+            this.eye = person.eye;
+            this.hair = person.hair;
+            this.hair_color = person.hair_color;
+        }
+
+        public Person(String csvline, Char seperator = '\n') {
+            Char[] friendlySeperator = { seperator };
+            String[] entries = csvline.Split(friendlySeperator, StringSplitOptions.RemoveEmptyEntries);
+
+            this.name = entries[0];
+            this.address = entries[1];
+            this.birth_data = DateTime.Parse(entries[2]); // TODO make sure parsing works
+            this.phone_h = entries[3];
+            this.phone_w = entries[4];
+            this.email = entries[5];
+            this.color = entries[6];
+            this.height = Convert.ToInt32(entries[7]);
+            this.weight = Convert.ToInt32(entries[8]);
+            this.blood = entries[9];
+            this.eye = entries[10];
+            this.hair = entries[11];
+            this.hair_color = entries[12];
         }
 
         public override String ToString() {
-            string formatted = "";
+            String formatted = "";
             formatted += "Name: " + this.name + "\n";
             formatted += "Address: " + this.address + "\n";
             formatted += "Phone Home: " + this.phone_h + "\n";
@@ -252,10 +149,7 @@ namespace Adressbuch {
             formatted += "Blood: " + this.blood + "\n";
             formatted += "Eye Color: " + this.eye + "\n";
             formatted += "Hair: " + this.hair + "\n";
-<<<<<<< HEAD
-            formatted += "Hair Colro: " + this.hair_color + "\n";
-=======
->>>>>>> b1176b015caaf4d4370bcc91b3568a06af33c5bc
+            formatted += "Hair Color: " + this.hair_color + "\n";
 
             return formatted;
         }
