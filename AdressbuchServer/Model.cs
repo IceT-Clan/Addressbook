@@ -30,7 +30,7 @@ namespace Adressbuch
             _path = path;
         }
 
-        public List<Person> suchePersonen(string wert)
+        public List<Person> search(string wert)
         {
             // leere Ergebnisliste erstellen
             List<Person> ergebnis = new List<Person>();
