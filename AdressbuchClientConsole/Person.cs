@@ -6,26 +6,26 @@ using System.Threading.Tasks;
 
 namespace Adressbuch {
     class Person {
-        private string name;
-        private string address;
+        private String name;
+        private String address;
         private DateTime birth_data;
-        private string phone_h;
-        private string phone_w;
-        private string email;
-        private string color;
-        private int height;
-        private int weight;
-        private string blood;
-        private string eye;
-        private string hair;
-        private string hair_color;
+        private String phone_h;
+        private String phone_w;
+        private String email;
+        private String color;
+        private Int32 height;
+        private Int32 weight;
+        private String blood;
+        private String eye;
+        private String hair;
+        private String hair_color;
 
-        public string Name {
+        public String Name {
             get { return this.name; }
             set { this.name = value; }
         }
 
-        public string Address {
+        public String Address {
             get { return this.address; }
             set { this.address = value; }
         }
@@ -35,68 +35,68 @@ namespace Adressbuch {
             set { this.birth_data = value; }
         }
 
-        public string Phone_h {
+        public String Phone_h {
             get { return this.phone_h; }
             set { this.phone_h = value; }
         }
 
-        public string Phone_w {
+        public String Phone_w {
             get { return this.phone_w; }
             set { this.phone_w = value; }
         }
 
-        public string Email {
+        public String Email {
             get { return this.email; }
             set { this.email = value; }
         }
 
-        public string Color {
+        public String Color {
             get { return this.color; }
             set { this.color = value; }
         }
 
-        public int Height {
+        public Int32 Height {
             get { return this.height; }
             set { this.height = value; }
         }
 
-        public int Weight {
+        public Int32 Weight {
             get { return this.weight; }
             set { this.weight = value; }
         }
 
-        public string Blood {
+        public String Blood {
             get { return this.blood; }
             set { this.blood = value; }
         }
 
-        public string Eye {
+        public String Eye {
             get { return this.eye; }
             set { this.eye = value; }
         }
 
-        public string Hair {
+        public String Hair {
             get { return this.hair; }
             set { this.hair = value; }
         }
-        public string Hair_color {
+        public String Hair_color {
             get { return this.hair_color; }
             set { this.hair_color = value; }
         }
 
-        public Person(string name,
-                      string address,
+        public Person(String name,
+                      String address,
                       DateTime birth_data,
-                      string phone_h,
-                      string phone_w,
-                      string email,
-                      string color,
-                      int height,
-                      int weight,
-                      string blood,
-                      string eye,
-                      string hair,
-                      string hair_color) {
+                      String phone_h,
+                      String phone_w,
+                      String email,
+                      String color,
+                      Int32 height,
+                      Int32 weight,
+                      String blood,
+                      String eye,
+                      String hair,
+                      String hair_color) {
             this.name = name;
             this.address = address;
             this.birth_data = birth_data;
@@ -129,7 +129,7 @@ namespace Adressbuch {
         }
 
         public override String ToString() {
-            string formatted = "";
+            String formatted = "";
             formatted += "Name: " + this.name + "\n";
             formatted += "Address: " + this.address + "\n";
             formatted += "Phone Home: " + this.phone_h + "\n";
