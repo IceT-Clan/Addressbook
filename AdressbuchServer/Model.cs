@@ -12,10 +12,11 @@ namespace Adressbuch
     // zur Verfügung
     class Model
     {
+        private string _path;
         // Objektvariable für Zugriff auf Liste
         private List<Person> personen;
-        
-        public Model()
+
+        public Model(string path)
         {
             // Leere Liste erstellen
             personen = new List<Person>();
@@ -25,6 +26,8 @@ namespace Adressbuch
             // der Liste hinzufügen
 
             leseAdressbuchDatei();
+
+            _path = path;
         }
 
         public List<Person> suchePersonen(string wert)
@@ -60,18 +63,18 @@ namespace Adressbuch
             // Besser wäre, bei Misserfolg eine Ausnahme zu werfen
             bool rc = true;
 
-            if (System.IO.File.Exists(@"adressbuch.txt")==false)
+            if (System.IO.File.Exists(_path) == false)
             {
-                Console.WriteLine("No adressbuch.txt found!\n");
-                File.Create(@"adressbuch.txt");
+                Console.WriteLine("No"+ _path+ "found!\n");
+                File.Create(_path);
             }
-            
+
             // automatische Freigabe der Ressource mittels using
-            using (StreamReader sr = new StreamReader(@"adressbuch.txt"))
+            using (StreamReader sr = new StreamReader(_path))
             {
                 string zeile;
                 // Lesen bis Dateiende, Zeile für Zeile
-                while ( ( zeile = sr.ReadLine() ) != null )
+                while ((zeile = sr.ReadLine()) != null)
                 {
                     // Person-Objekt erstellen anhand gelesener Zeile
                     Person p = convertString2Person(zeile);
@@ -108,7 +111,7 @@ namespace Adressbuch
 
         private string convertPerson2String(Person _p)
         {
-            string person="";
+            string person = "";
 
             // Hier wird ein Person-Objekt in den String umgeformt
 
