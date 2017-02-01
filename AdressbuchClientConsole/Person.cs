@@ -95,7 +95,8 @@ namespace Adressbuch {
                       int weight,
                       string blood,
                       string eye,
-                      string hair) {
+                      string hair,
+                      string hair_color) {
             this.name = name;
             this.address = address;
             this.birth_data = birth_data;
@@ -108,6 +109,23 @@ namespace Adressbuch {
             this.blood = blood;
             this.eye = eye;
             this.hair = hair;
+            this.hair_color = hair_color;
+        }
+
+        public Person(Person person) {
+            this.name = person.name;
+            this.address = person.address;
+            this.birth_data = person.birth_data;
+            this.phone_h = person.phone_h;
+            this.phone_w = person.phone_w;
+            this.email = person.email;
+            this.color = person.color;
+            this.height = person.height;
+            this.weight = person.weight;
+            this.blood = person.blood;
+            this.eye = person.eye;
+            this.hair = person.hair;
+            this.hair_color = person.hair_color;
         }
 
         public override String ToString() {
@@ -123,6 +141,7 @@ namespace Adressbuch {
             formatted += "Blood: " + this.blood + "\n";
             formatted += "Eye Color: " + this.eye + "\n";
             formatted += "Hair: " + this.hair + "\n";
+            formatted += "Hair Color: " + this.hair_color + "\n";
 
             return formatted;
         }
