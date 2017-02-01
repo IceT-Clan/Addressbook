@@ -61,27 +61,6 @@ namespace Adressbuch {
             return result;
         }
 
-        public List<Person> suchePersonen(string wert) {
-            List<Person> ergebnis = new List<Person>();
-
-            foreach (Person p in persons) {
-                if (p.Vorname.Contains(wert) ||
-                    p.Name.Contains(wert) ||
-                    p.Plz.Contains(wert)
-                   ) {
-                    Person newPerson = new Person(p.Vorname,
-                                                  p.Name,
-                                                  p.Plz,
-                                                  p.Geburtstag
-                                                 );
-                    ergebnis.Add(newPerson);
-                }
-            }
-
-            return ergebnis;
-
-        }
-
         public List<Person> GetAllEntries() => this.persons;
 
         private void ReadAddressbook() {

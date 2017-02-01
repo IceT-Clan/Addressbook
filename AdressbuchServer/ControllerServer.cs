@@ -89,7 +89,7 @@ namespace Adressbuch {
             string suchbegriff = _client.readLine();
 
             // Speichere die Ergebnisse in einer Liste
-            List<Person> ergebnis = model.search(suchbegriff);
+            List<Person> ergebnis = model.Search(suchbegriff);
 
             // Sende Client die Anzahl der gefundenen Personen
             _client.write(ergebnis.Count);
