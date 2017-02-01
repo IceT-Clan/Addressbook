@@ -40,7 +40,7 @@ namespace Adressbuch {
                     throw new NotImplementedException();
                     break;
                 case SearchType.FIXED_STRING:
-
+                    results = search_fixed_string("ss");
                     break;
                 default:
                     throw new NotImplementedException();
