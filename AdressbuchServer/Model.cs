@@ -14,8 +14,7 @@ namespace Adressbuch
     {
         // Objektvariable für Zugriff auf Liste
         private List<Person> personen;
-
-
+        
         public Model()
         {
             // Leere Liste erstellen
@@ -61,6 +60,12 @@ namespace Adressbuch
             // Besser wäre, bei Misserfolg eine Ausnahme zu werfen
             bool rc = true;
 
+            if (System.IO.File.Exists(@"adressbuch.txt")==false)
+            {
+                Console.WriteLine("No adressbuch.txt found!\n");
+                File.Create(@"adressbuch.txt");
+            }
+            
             // automatische Freigabe der Ressource mittels using
             using (StreamReader sr = new StreamReader(@"adressbuch.txt"))
             {
