@@ -11,7 +11,7 @@ namespace __ClientSocket__ {
         private IPAddress host;
 
         public ClientSocket(string host, int port) {
-            socket = new Socket(SocketType.Stream, ProtocolType.Tcp);
+            socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             this.port = port;
             this.host = Dns.GetHostEntry(host).AddressList[0];
         }
