@@ -13,8 +13,8 @@ namespace __ServerSocket__ {
         public ServerSocket(int port) {
             this.port = port;
             serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
-            IPAddress ipAddress = ipHostInfo.AddressList[0];
+            IPHostEntry ipHostInfo = Dns.GetHostEntry("localhost");
+            IPAddress ipAddress = ipHostInfo.AddressList[1];
             IPEndPoint localEndPoint = new IPEndPoint(ipAddress, port);
 
             try {
