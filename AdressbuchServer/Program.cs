@@ -12,6 +12,7 @@ namespace Adressbuch {
 
             if (args.Length < 2) {
                 Console.WriteLine("Usage: <port> <adressbook>");
+                Environment.Exit(22);
             }
 
             port = Convert.ToInt16(args[0]);
