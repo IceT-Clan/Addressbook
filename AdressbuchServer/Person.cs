@@ -153,6 +153,5 @@ namespace Adressbuch {
 
             return formatted;
         }
->>>>>>> 6421fdd3bda628fa655f56055c07ece24ed6dd0c
     }
 }
