@@ -49,7 +49,7 @@ namespace Adressbuch {
                 // für die weitere Kommnikation erhalten
 
                 // Client-Socket liest Kommando vom Client
-                ServerCommand command = (ServerCommand)client.read();
+                ServerCommand command = (ServerCommand)client.Read();
 
                 // Kommando wird ausgewertet
                 switch (command) {
@@ -76,8 +76,8 @@ namespace Adressbuch {
                         break;
                 } // Ende switch
 
-                client.close();
-                client.dispose();
+                client.Close();
+                client.Dispose();
                 Console.WriteLine("Verbindung geschlossen!");
                 Console.WriteLine("=======================");
 
@@ -87,13 +87,13 @@ namespace Adressbuch {
 
         private void search(ClientSocket clientSocket) {
             // Lese Suchstring vom Client
-            string pattern = clientSocket.readLine();
+            string pattern = clientSocket.ReadLine();
 
             // Speichere die Ergebnisse in einer Liste
             List<Person> results = model.Search(pattern);
 
             // Sende Client die Anzahl der gefundenen Personen
-            clientSocket.write(results.Count);
+            clientSocket.Write(results.Count);
 
             // Sende nun die Personendaten
             if (results.Count > 0) {
@@ -102,7 +102,7 @@ namespace Adressbuch {
 
                     // Testausgabe
                     Console.WriteLine(data);
-                    clientSocket.write(data + "\n");
+                    clientSocket.Write(data + "\n");
                 }
             }
         }
@@ -111,7 +111,7 @@ namespace Adressbuch {
             List<Person> persons = model.GetAllEntries();
             string separator = ";";
 
-            clientSocket.write(persons.Count);
+            clientSocket.Write(persons.Count);
 
             if (persons.Count > 0) {
                 foreach (Person p in persons) {
@@ -129,7 +129,7 @@ namespace Adressbuch {
                     data += p.Eye + separator;
                     data += p.Hair + separator;
                     data += p.Hair_color + separator;
-                    clientSocket.write(data + "\n");
+                    clientSocket.Write(data + "\n");
                 }
             }
         }

@@ -23,7 +23,7 @@ namespace __ServerSocket__ {
             try {
                 serverSocket.Bind(ep);
                 serverSocket.Listen(1);
-            } catch (Exception ex) {
+            } catch (Exception) {
                 // MessageBox.Show(ex.Message);
                 serverSocket.Close();
                 return;

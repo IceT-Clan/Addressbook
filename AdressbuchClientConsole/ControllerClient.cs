@@ -101,16 +101,16 @@ namespace Adressbuch
             try
             {
                 // Verbindung mit Server herstellen
-                client.connect();
+                client.Connect();
                 
                 // Kommando senden
-                client.write((int)ServerCommand.FINDPERSONS);
+                client.Write((int)ServerCommand.FINDPERSONS);
 
                 // Suchstring senden
-                client.write(suchbegriff);
+                client.Write(suchbegriff);
 
                 // Anzahl gefundener Personen lesen
-                int anzahl = client.read();
+                int anzahl = client.Read();
 
                 Console.WriteLine("Anzahl gefundener Personen: {0}", anzahl);
 
@@ -120,7 +120,7 @@ namespace Adressbuch
 
                     for (int i = 0; i < anzahl; i++)
                     {
-                        string person = client.readLine();
+                        string person = client.ReadLine();
 
                         // Testausgabe
                         // Console.WriteLine(person);
@@ -137,7 +137,7 @@ namespace Adressbuch
 
                 } // End if
 
-                client.close();
+                client.Close();
 
             }
             catch (Exception)
@@ -152,22 +152,22 @@ namespace Adressbuch
             client = new ClientSocket(host, port);
             try
             {
-                client.connect();
-                client.write((int)ServerCommand.GETALLPERSONS);
-                int count = client.read();
+                client.Connect();
+                client.Write((int)ServerCommand.GETALLPERSONS);
+                int count = client.Read();
 
                 if (count >= 1)
                 {
                     List<Person> erg = new List<Person>();
                     for (int i = 0; i < count; i++)
                     {
-                        string person = client.readLine();
+                        string person = client.ReadLine();
                         Person p = convertString2Person(person);
                         erg.Add(p);
                     }
                     view.aktualisiereSicht(erg);
                 }
-                client.close();
+                client.Close();
             }
             catch (Exception)
             {

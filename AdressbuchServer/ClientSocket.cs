@@ -5,11 +5,9 @@ using System.Net.Sockets;
 
 namespace __ClientSocket__ {
     class ClientSocket {
-        private string host;
-        private int port;
         private Socket socket;
         private IPEndPoint ep;
-        IPHostEntry hostInfo;
+        private IPHostEntry hostInfo;
 
         public ClientSocket(string host, int port) {
             Dns.GetHostEntry(host);
@@ -21,10 +19,10 @@ namespace __ClientSocket__ {
             this.socket = socket;
         }
 
-        public bool connect() {
+        public bool Connect() {
             try {
                 socket.Connect(ep);
-            } catch (Exception ex) {
+            } catch (Exception) {
                 // MessageBox.Show(ex.Message);
                 return false;
             }
@@ -32,28 +30,28 @@ namespace __ClientSocket__ {
             return true;
         }
 
-        public int dataAvailable() => socket.Available;
+        public int DataAvailable() => socket.Available;
 
-        public void write(int b) {
+        public void Write(int b) {
             byte[] msg = new byte[1];
             msg[0] = (byte)b;
             socket.Send(msg);
         }
 
-        public void write(string s) {
+        public void Write(string s) {
             byte[] msg = Encoding.Unicode.GetBytes(s);
             socket.Send(msg);
         }
 
-        public int read() {
+        public int Read() {
             byte[] rcvbuffer = new byte[1];
             socket.Receive(rcvbuffer);
             return rcvbuffer[0];
         }
 
-        public int read(byte[] b, int len) => socket.Receive(b, len, SocketFlags.None);
+        public int Read(byte[] b, int len) => socket.Receive(b, len, SocketFlags.None);
 
-        public string readLine() {
+        public string ReadLine() {
             byte[] rcvbuffer = new byte[256];
             socket.Receive(rcvbuffer);
             System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
@@ -70,6 +68,7 @@ namespace __ClientSocket__ {
 
             return rcv;
         }
-        public void close() => socket.Close();
+        public void Close() => socket.Close();
+        public void Dispose() => socket.Dispose();
     }
 }
