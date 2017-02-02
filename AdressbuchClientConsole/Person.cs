@@ -123,7 +123,7 @@ namespace Adressbuch {
 
             this.name = entries[0];
             this.address = entries[1];
-            this.birth_data = DateTime.Parse(entries[2]); // TODO make sure parsing works
+            this.birth_data = DateTime.ParseExact(entries[2], "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
             this.phone_h = entries[3];
             this.phone_w = entries[4];
             this.email = entries[5];
