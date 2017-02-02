@@ -27,16 +27,17 @@ namespace Adressbuch {
         private Model model;
         private ServerSocket server;
 
-        public ControllerServer(int _port, string _addrbk_file) {
-            model = new Model(_addrbk_file);
-            server = new ServerSocket(_port);
+        public ControllerServer(int port, string addressbook) {
+            model = new Model(addressbook);
+            server = new ServerSocket(port);
         }
 
         public void start() {
+            bool hasNotStopped = true;
             Console.WriteLine("Server gestartet!");
 
             // Server kann nicht gestoppt werden
-            while (true) {
+            while (hasNotStopped) {
                 // ServerSocket in listen-Modus
                 ClientSocket client = new ClientSocket(server.accept());
 
@@ -76,7 +77,7 @@ namespace Adressbuch {
                 } // Ende switch
 
                 client.close();
-                client = null;
+                client.dispose();
                 Console.WriteLine("Verbindung geschlossen!");
                 Console.WriteLine("=======================");
 
@@ -84,49 +85,60 @@ namespace Adressbuch {
 
         }
 
-        private void search(ClientSocket _client) {
+        private void search(ClientSocket clientSocket) {
             // Lese Suchstring vom Client
-            string suchbegriff = _client.readLine();
+            string pattern = clientSocket.readLine();
 
             // Speichere die Ergebnisse in einer Liste
-            List<Person> ergebnis = model.Search(suchbegriff);
+            List<Person> results = model.Search(pattern);
 
             // Sende Client die Anzahl der gefundenen Personen
-            _client.write(ergebnis.Count);
+            clientSocket.write(results.Count);
 
             // Sende nun die Personendaten
-            if (ergebnis.Count > 0) {
-                foreach (Person p in ergebnis) {
-                    string data = p.ToString();
+            if (results.Count > 0) {
+                foreach (Person person in results) {
+                    string data = person.ToString();
 
                     // Testausgabe
                     Console.WriteLine(data);
-                    _client.write(data + "\n");
+                    clientSocket.write(data + "\n");
                 }
             }
         }
 
-        private void getAllEntries(ClientSocket _client) {
-            List<Person> erg = model.getall();
-            _client.write(erg.Count);
-            if (erg.Count > 0)
-            {
-                string separator = ";";
-                foreach (Person p in erg)
-                {
-                    string data = p.Name + separator;
-                    data += p.Address + separator + p.Birth_data.Date.ToShortDateString() + p.Phone_h + separator + p.Phone_w + separator + p.Email + separator + p.Color + separator + p.Height + separator + p.Weight + separator + p.Blood + separator + p.Eye + separator + p.Hair + separator + p.Hair_color;
-                    _client.write(data + "\n");
-                    Thread.Sleep(100);
+        private void getAllEntries(ClientSocket clientSocket) {
+            List<Person> persons = model.GetAllEntries();
+            string separator = ";";
+
+            clientSocket.write(persons.Count);
+
+            if (persons.Count > 0) {
+                foreach (Person p in persons) {
+                    string data = "";
+                    data += p.Name + separator;
+                    data += p.Address + separator;
+                    data += p.Birth_data.Date.ToShortDateString();
+                    data += p.Phone_h + separator;
+                    data += p.Phone_w + separator;
+                    data += p.Email + separator;
+                    data += p.Color + separator;
+                    data += p.Height + separator;
+                    data += p.Weight + separator;
+                    data += p.Blood + separator;
+                    data += p.Eye + separator;
+                    data += p.Hair + separator;
+                    data += p.Hair_color + separator;
+                    clientSocket.write(data + "\n");
                 }
             }
         }
 
-        private void addNewEntry(ClientSocket _client) {
+        private void addNewEntry(ClientSocket clientSocket) {
 
         }
 
-        private void remEntry(ClientSocket _client) {
+        private void remEntry(ClientSocket clientSocket) {
 
         }
     }
