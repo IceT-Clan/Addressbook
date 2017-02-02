@@ -47,7 +47,7 @@ namespace Adressbuch
             Console.Write("");
             Console.Write("$ INPUT> ");
         }
-        public void aktualisiereSicht(List<Person> _personen)
+        public void refresh(List<Person> _personen)
         {
             //female,Juliane,Fenstermacher,"Schaarsteinweg 16",93491,Stamsried,"Freistaat Bayern",Germany,JulianeFenstermacher@gustr.com,49,"09465 80 57 67",8/8/1991
            

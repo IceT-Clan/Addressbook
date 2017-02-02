@@ -66,7 +66,7 @@ namespace Adressbuch {
 
         private void ReadAddressbook() {
             if (!System.IO.File.Exists(this.path)) {
-                Console.WriteLine("No" + this.path + "found!\n");
+                Console.WriteLine("No " + this.path + " found!\n");
                 File.Create(this.path);
             }
 

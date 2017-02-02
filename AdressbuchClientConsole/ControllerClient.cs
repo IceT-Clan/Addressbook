@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 using __ClientSocket__;
 
-namespace Adressbuch
-{
-    enum ServerCommand
-    {
+namespace Adressbuch {
+    enum ServerCommand {
         NONE,
         FINDPERSONS,
         GETALLPERSONS,
@@ -16,21 +15,18 @@ namespace Adressbuch
         DELETEPERSON
     }
 
-    enum ClientInfo
-    {
+    enum ClientInfo {
         NOMOREDATA,
         MOREDATA
     }
 
-    class ControllerClient
-    {
+    class ControllerClient {
         private ClientSocket client;
         private View view;
         private string host;
         private int port;
 
-        public ControllerClient(string _host, int _port)
-        {
+        public ControllerClient(string _host, int _port) {
             host = _host;
             port = _port;
             // Zugriff auf die View
@@ -38,8 +34,7 @@ namespace Adressbuch
         }
 
         // Hiermit wird der Client gestartet
-        public int start()
-        {
+        public int start() {
             // Hier erfolgt die Interaktion mit dem Benutzer
             // Die Ausgaben können in einem View-Objekt erfolgen
 
@@ -48,8 +43,7 @@ namespace Adressbuch
             // Menü ausgeben und Auswahl treffen
             eingabe = menue();
 
-            switch (eingabe)
-            {
+            switch (eingabe) {
                 // Suche Personen
                 case 1:
                     suchePersonen();
@@ -57,7 +51,7 @@ namespace Adressbuch
 
                 // Hole Adressbuch
                 case 2:
-                    // holeAdressbuch(),
+                    holeAdressbuch();
                     break;
 
                 case 9:
@@ -70,15 +64,13 @@ namespace Adressbuch
             return eingabe;
         }
 
-        private int menue()
-        {
+        private int menue() {
             int auswahl = 0;
 
             view.zeigeMenue();
 
             // Auswahl lesen
-            do
-            {
+            do {
                 auswahl = Convert.ToInt32(Console.ReadLine());
             } while (auswahl < 1 || auswahl > 9);
 
@@ -88,8 +80,7 @@ namespace Adressbuch
             return auswahl;
         }
 
-        private void suchePersonen()
-        {
+        private void suchePersonen() {
             // Suchbegriff abfragen
             Console.Write("Suchbegriff> ");
             string suchbegriff = Console.ReadLine();
@@ -98,11 +89,11 @@ namespace Adressbuch
             // Hier müsste eine Ausnahmebehandlung erfolgen
             // falls keine Verbindung möglich ist
             client = new ClientSocket(host, port);
-            try
-            {
+            try {
+
                 // Verbindung mit Server herstellen
                 client.Connect();
-                
+
                 // Kommando senden
                 client.Write((int)ServerCommand.FINDPERSONS);
 
@@ -114,97 +105,45 @@ namespace Adressbuch
 
                 Console.WriteLine("Anzahl gefundener Personen: {0}", anzahl);
 
-                if (anzahl > 0)
-                {
-                    List<Person> ergebnis = new List<Person>();
+                if (anzahl > 0) {
+                    List<Person> result = new List<Person>();
 
-                    for (int i = 0; i < anzahl; i++)
-                    {
-                        string person = client.ReadLine();
-
-                        // Testausgabe
-                        // Console.WriteLine(person);
-
-                        // Person-Objekt aus empfangenem String
-                        Person p = convertString2Person(person);
-
-                        // Person-Objekt in die Liste für die Anzeige
-                        ergebnis.Add(p);
+                    for (int i = 0; i < anzahl; i++) {
+                        result.Add(new Person(client.ReadLine(), ','));
                     } // Ende for
 
                     // Daten anzeigen
-                    view.aktualisiereSicht(ergebnis);
+                    view.refresh(result);
 
                 } // End if
 
                 client.Close();
 
-            }
-            catch (Exception)
-            {
+            } catch (Exception e) {
+                Debug.WriteLine(e.Message);
                 throw;
             }
 
         }
 
-        private void holeAdressbuch()
-        {
+        private void holeAdressbuch() {
             client = new ClientSocket(host, port);
-            try
-            {
+            try {
                 client.Connect();
                 client.Write((int)ServerCommand.GETALLPERSONS);
                 int count = client.Read();
 
-                if (count >= 1)
-                {
-                    List<Person> erg = new List<Person>();
-                    for (int i = 0; i < count; i++)
-                    {
-                        string person = client.ReadLine();
-                        Person p = convertString2Person(person);
-                        erg.Add(p);
+                if (count >= 1) {
+                    List<Person> result = new List<Person>();
+                    for (int i = 0; i < count; i++) {
+                        result.Add(new Person(client.ReadLine(), ','));
                     }
-                    view.aktualisiereSicht(erg);
+                    view.refresh(result);
                 }
                 client.Close();
-            }
-            catch (Exception)
-            {
+            } catch (Exception) {
                 throw;
             }
         }
-
-        private Person convertString2Person(string _p)
-        {
-            char[] separator = { ';' };
-            string[] daten = _p.Split(separator);
-
-            // Geburtsdatum umformen, um ein DateTime-Objekt
-            // zu erstellen
-            char[] trenner = { ',' };
-            string[] geburtsdatum = daten[3].Split(trenner);
-
-            int tag = Convert.ToInt32(geburtsdatum[0]);
-            int monat = Convert.ToInt32(geburtsdatum[1]);
-            int jahr = Convert.ToInt32(geburtsdatum[2]);
-
-            DateTime datum = new DateTime(jahr, monat, tag);
-
-            // Person-Objekt erstellen und der Liste hinzufügen
-            Person p = new Person(daten[0], daten[1], datum, daten[2], daten[3], daten[4], daten[5], Int32.Parse(daten[6]), Int32.Parse(daten[7]), daten[8], daten[9], daten[10]);
-
-            return p;
-        }
-
-        private string convertPerson2String(Person _p)
-        {
-            string person = "";
-
-            // Hier wird ein Person-Objekt in den String umgeformt
-
-            return person;
-        }
-
     }
 }

@@ -39,9 +39,12 @@ namespace Adressbuch {
             // Server kann nicht gestoppt werden
             while (hasNotStopped) {
                 // ServerSocket in listen-Modus
-                ClientSocket client = new ClientSocket(server.accept());
+                Console.WriteLine("Waiting for connection...");
 
-                Console.WriteLine("Verbindung hergestellt!");
+                ClientSocket client = new ClientSocket(server.Accept());
+                Console.CursorTop--;
+                Console.WriteLine("Connection established");
+                
 
                 // Der folgende Teil würde in einen separaten Thread ausgelagert,
                 // um den Server wieder für neue Verbindungen zu öffnen

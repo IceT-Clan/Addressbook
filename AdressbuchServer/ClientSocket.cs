@@ -2,17 +2,18 @@
 using System.Text;
 using System.Net;
 using System.Net.Sockets;
+using System.Diagnostics;
 
 namespace __ClientSocket__ {
     class ClientSocket {
         private Socket socket;
-        private IPEndPoint ep;
-        private IPHostEntry hostInfo;
+        private int port;
+        private IPAddress host;
 
         public ClientSocket(string host, int port) {
-            Dns.GetHostEntry(host);
-            ep = new IPEndPoint(hostInfo.AddressList[0], port);
-            socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            socket = new Socket(SocketType.Stream, ProtocolType.Tcp);
+            this.port = port;
+            this.host = Dns.GetHostEntry(host).AddressList[0];
         }
 
         public ClientSocket(Socket socket) {
@@ -21,12 +22,11 @@ namespace __ClientSocket__ {
 
         public bool Connect() {
             try {
-                socket.Connect(ep);
-            } catch (Exception) {
-                // MessageBox.Show(ex.Message);
-                return false;
+                socket.Connect(host, port);
+            } catch (Exception e) {
+                Debug.WriteLine(e.Message);
+                throw;
             }
-
             return true;
         }
 
