@@ -62,6 +62,7 @@ namespace Adressbuch {
         }
 
         public List<Person> GetAllEntries() => this.persons;
+        public Person GetPersonFromID(int id) => this.persons[id];
 
         private void ReadAddressbook() {
             if (!System.IO.File.Exists(this.path)) {
