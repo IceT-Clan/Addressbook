@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using __ServerSocket__;
-using __ClientSocket__;
+using Sockets;
+using People;
 
-namespace Adressbuch {
+namespace Addressbook {
     enum ServerCommand {
         NONE,
         MODIFYPERSON,
@@ -28,8 +25,8 @@ namespace Adressbuch {
         private ServerSocket server;
 
         public ControllerServer(int port, string addressbook) {
-            model = new Model(addressbook);
-            server = new ServerSocket(port);
+            this.model = new Model(addressbook);
+            this.server = new ServerSocket(port);
         }
 
         public void start() {
@@ -41,7 +38,7 @@ namespace Adressbuch {
                 // ServerSocket in listen-Modus
                 Console.WriteLine("Waiting for connection...");
 
-                ClientSocket client = new ClientSocket(server.Accept());
+                ClientSocket client = new ClientSocket(this.server.Accept());
                 Console.CursorTop--;
                 Console.WriteLine("Connection established");
                 
@@ -60,19 +57,19 @@ namespace Adressbuch {
                         break;
 
                     case ServerCommand.FINDPERSONS:
-                        search(client);
+                        Search(client);
                         break;
 
                     case ServerCommand.GETALLPERSONS:
-                        getAllEntries(client);
+                        GetAllEntries(client);
                         break;
 
                     case ServerCommand.ADDPERSON:
-                        addNewEntry(client);
+                        AddNewEntry(client);
                         break;
 
                     case ServerCommand.DELETEPERSON:
-                        remEntry(client);
+                        RemEntry(client);
                         break;
 
                     default:
@@ -88,12 +85,12 @@ namespace Adressbuch {
 
         }
 
-        private void search(ClientSocket clientSocket) {
+        private void Search(ClientSocket clientSocket) {
             // Lese Suchstring vom Client
             string pattern = clientSocket.ReadLine();
 
             // Speichere die Ergebnisse in einer Liste
-            List<Person> results = model.Search(pattern);
+            List<Person> results = this.model.Search(pattern);
 
             // Sende Client die Anzahl der gefundenen Personen
             clientSocket.Write(results.Count);
@@ -110,8 +107,8 @@ namespace Adressbuch {
             }
         }
 
-        private void getAllEntries(ClientSocket clientSocket) {
-            List<Person> persons = model.GetAllEntries();
+        private void GetAllEntries(ClientSocket clientSocket) {
+            List<Person> persons = this.model.GetAllEntries();
             string separator = ";";
 
             clientSocket.Write(persons.Count);
@@ -137,11 +134,11 @@ namespace Adressbuch {
             }
         }
 
-        private void addNewEntry(ClientSocket clientSocket) {
+        private void AddNewEntry(ClientSocket clientSocket) {
 
         }
 
-        private void remEntry(ClientSocket clientSocket) {
+        private void RemEntry(ClientSocket clientSocket) {
 
         }
     }

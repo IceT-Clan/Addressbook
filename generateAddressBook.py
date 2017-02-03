@@ -48,14 +48,14 @@ group.add_argument("-q", "--quiet", action="store_true",
                    help="be more quiet")
 parser.add_argument("-n", "--simulate", action="store_true",
                     help="simulate, don't do anything")
-parser.add_argument("-O", "--output", help="Output file")
+parser.add_argument("-O", "--output", help="Output file", required=True)
 parser.add_argument("-o", "--origin", default="random",
-                    help="Country for the generated name")
+                    help="Country for the generated identities")
 parser.add_argument("-g", "--gender", default="random",
-                    help="Gender for the generated name")
-parser.add_argument("-c", "--count", help="How many names do you want",
-                    type=int)
-parser.add_argument("-t", "--threads", default=404, type=int
+                    help="Gender for the generated identities")
+parser.add_argument("-c", "--count", help="How many identities do you want",
+                    type=int, required=True)
+parser.add_argument("-t", "--threads", default=404, type=int,
                     help="Num of threats to use")
 
 args = parser.parse_args()

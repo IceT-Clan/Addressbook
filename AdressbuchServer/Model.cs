@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using People;
 
-namespace Adressbuch {
+namespace Addressbook {
     enum SearchType {
         BASIC_REGEX,
         REGEX,
@@ -76,7 +74,6 @@ namespace Adressbuch {
                     this.persons.Add(new Person(line));
                 }
             }
-
-        }
+       }
     }
 }

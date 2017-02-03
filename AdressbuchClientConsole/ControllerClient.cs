@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Diagnostics;
-using __ClientSocket__;
+using Sockets;
+using People;
 
-namespace Adressbuch {
+namespace Addressbook {
     enum ServerCommand {
         NONE,
         FINDPERSONS,
@@ -27,21 +25,21 @@ namespace Adressbuch {
         private int port;
 
         public ControllerClient(string _host, int _port) {
-            host = _host;
-            port = _port;
+            this.host = _host;
+            this.port = _port;
             // Zugriff auf die View
-            view = new Adressbuch.View();
+            this.view = new View();
         }
 
         // Hiermit wird der Client gestartet
-        public int start() {
+        public int Start() {
             // Hier erfolgt die Interaktion mit dem Benutzer
             // Die Ausgaben können in einem View-Objekt erfolgen
 
             int eingabe = 0;
 
             // Menü ausgeben und Auswahl treffen
-            eingabe = menue();
+            eingabe = Menu();
 
             switch (eingabe) {
                 // Suche Personen
@@ -64,10 +62,10 @@ namespace Adressbuch {
             return eingabe;
         }
 
-        private int menue() {
+        private int Menu() {
             int auswahl = 0;
 
-            view.zeigeMenue();
+            this.view.ShowMenu();
 
             // Auswahl lesen
             do {
@@ -113,7 +111,7 @@ namespace Adressbuch {
                     } // Ende for
 
                     // Daten anzeigen
-                    view.refresh(result);
+                    view.Refresh(result);
 
                 } // End if
 
@@ -138,7 +136,7 @@ namespace Adressbuch {
                     for (int i = 0; i < count; i++) {
                         result.Add(new Person(client.ReadLine(), ','));
                     }
-                    view.refresh(result);
+                    view.Refresh(result);
                 }
                 client.Close();
             } catch (Exception) {

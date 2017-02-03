@@ -1,32 +1,10 @@
-﻿using System;
+﻿using People;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Adressbuch
-{
-    class View
-    {
-        // Hierin wird alles notwenige für
-        // das Anzeigen der Daten gekapselt
-        // die View soll nach außen festgelegte
-        // Methoden enthalten und austauschbar sein
-        // z.B. durch ein Formular
-
-
-        /*
-
-
-
-
-
-
-             */
-
-
-        public void zeigeMenue()
-        {
+namespace Addressbook {
+    class View {
+        public void ShowMenu() {
             // Ausgabe Menue
             Console.WriteLine(@"          _____ _        _ _    ____              _    ");
             Console.WriteLine(@"         / ____| |      | | |  |  _ \            | |   ");
@@ -47,21 +25,17 @@ namespace Adressbuch
             Console.Write("");
             Console.Write("$ INPUT> ");
         }
-        public void refresh(List<Person> _personen)
-        {
-            //female,Juliane,Fenstermacher,"Schaarsteinweg 16",93491,Stamsried,"Freistaat Bayern",Germany,JulianeFenstermacher@gustr.com,49,"09465 80 57 67",8/8/1991
-           
-            foreach (Person p in _personen)
-            {
+        public void Refresh(List<Person> _personen) {
+            foreach (Person p in _personen) {
                 Console.WriteLine("======================================");
                 Console.WriteLine("Name:" + p.Name + " | Birthdata: " + p.Birth_data);
-                Console.WriteLine("Adresse: "+ p.Address);
+                Console.WriteLine("Adresse: " + p.Address);
                 Console.WriteLine("Phone Home: " + p.Phone_h + " | Phone Work: " + p.Phone_w);
                 Console.WriteLine("Email: " + p.Email);
-                Console.WriteLine("Skin: " + p.Color +"#noracist");
+                Console.WriteLine("Skin: " + p.Color + "#noracist");
                 Console.WriteLine("Height: " + p.Height + " | Weight: " + p.Weight);
-                Console.WriteLine("Blood: " + p.Blood +" | Eye: " + p.Eye);
-                Console.WriteLine("Hair: " + p.Hair +" | Haircolor: " + p.Hair_color);
+                Console.WriteLine("Blood: " + p.Blood + " | Eye: " + p.Eye);
+                Console.WriteLine("Hair: " + p.Hair + " | Haircolor: " + p.Hair_color);
                 Console.WriteLine("======================================");
                 Console.WriteLine();
             }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Adressbuch {
+namespace Addressbook {
     // Das ist der Client
     class Program {
         static void Main(string[] args) {
@@ -26,7 +26,7 @@ namespace Adressbuch {
             do {
                 // Controller-Objekt erstellen
                 ControllerClient controller = new ControllerClient(host, port);
-                eingabe = controller.start();
+                eingabe = controller.Start();
             } while (eingabe != 9);
 
         }
