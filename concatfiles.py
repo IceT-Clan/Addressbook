@@ -38,4 +38,4 @@ with open(output, 'a', encoding=encoding) as outfile:
         logging.info("Getting content of {}".format(file))
         with open(file, encoding=encoding) as infile:
             outfile.writelines(infile)
-logging.info("Concatted {} files".format(len(files)))
+logging.info("Concatenated {} files".format(len(files)))
