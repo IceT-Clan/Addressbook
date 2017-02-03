@@ -1,12 +1,16 @@
 # GenerateAddressBook.py
+
 Author:
 * [Nikolai Zimmermann](https://github.com/Chronophylos)
-Language: 
+
+Language:
 * Python 3.6
+
 Platforms:
 * Windows
 * Linux (untested)
 * MacOS (untested)
+
 
 # Description
 Generate a addressbook filled with fake indentities. Identities are pulled from the [namefake.com](http://namefake.com) [API](http://namefake.com/api).
