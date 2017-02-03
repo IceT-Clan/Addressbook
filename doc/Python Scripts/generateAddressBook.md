@@ -16,7 +16,7 @@ Platforms:
 Generate a addressbook filled with fake indentities. Identities are pulled from the [namefake.com](http://namefake.com) [API](http://namefake.com/api).
 
 # Usage
-```Shell
+```
 usage: generateAddressBook.py [-h] [-d | -q] [-n] -O OUTPUT [-o ORIGIN]
                               [-g GENDER] -c COUNT [-t THREADS]
 
