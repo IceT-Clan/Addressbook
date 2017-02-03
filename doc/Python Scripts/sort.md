@@ -1,8 +1,11 @@
 # Sort.py
+
 Author:
 * [Nikolai Zimmermann](https://github.com/Chronophylos)
+
 Language: 
 * Python 3.6
+
 Platforms:
 * Windows
 * Linux (untested)
