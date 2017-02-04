@@ -11,6 +11,7 @@ import time
 import threading
 from queue import Queue
 import colorama
+from collections import OrderedDict
 
 
 # -------------- Constant Variables ------------- #
@@ -110,7 +111,7 @@ def getIdentityFromServer(url, fieldnames):
     except requests.exceptions.ConnectionError as e:
         return None
     data = json.JSONDecoder().decode(request.text)
-    identity = dict()
+    identity = OrderedDict()
     for entry in data:
         if entry in fieldnames:
             identity[entry] = toString(data[entry]).replace('\n', '')
@@ -183,6 +184,7 @@ def main():
     with open(args.output, 'w',
               encoding=encoding, errors=encoding_mode) as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        csvfile.write("#")
         writer.writeheader()
         # writer.writerows(fake_names)
         for identity in fake_names:
