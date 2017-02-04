@@ -19,7 +19,7 @@ namespace Addressbook {
             adressbook = args[1];
 
             ControllerServer c = new ControllerServer(port, adressbook);
-            c.start();
+            c.Start();
 
         }
     }

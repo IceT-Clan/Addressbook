@@ -25,9 +25,7 @@ namespace Sockets {
             }
         }
 
-        //public Socket Accept() => serverSocket.Accept();
         public Socket Accept() => this.serverSocket.Accept();
-
         public void Close() => this.serverSocket.Close();
 
     }

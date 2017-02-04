@@ -29,7 +29,7 @@ namespace Addressbook {
             this.server = new ServerSocket(port);
         }
 
-        public void start() {
+        public void Start() {
             bool hasNotStopped = true;
             Console.WriteLine("Server gestartet!");
 
