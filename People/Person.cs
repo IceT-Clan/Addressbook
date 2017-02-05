@@ -108,8 +108,6 @@ namespace People {
         }
 
         public Person(String csvline, Char seperator = ',') {
-            //Char[] friendlySeperator = { seperator };
-            //String[] entries = csvline.Split(friendlySeperator, StringSplitOptions.RemoveEmptyEntries);
             List<String> entries = new List<string>();
             String currentEntry = null;
             Boolean inApostrophe = false;
@@ -125,7 +123,6 @@ namespace People {
                 }
                 currentEntry += character;
             }
-
 
             switch (entries.Count) {
                 default:

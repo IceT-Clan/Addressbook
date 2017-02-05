@@ -11,6 +11,19 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Sockets", "Sockets\Sockets.
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "People", "People\People.shproj", "{6BC7F0CE-C23C-48A8-8EC9-DCC42F02F47F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{7D5C4653-CD47-4048-8C32-7FBC790B0B15}"
+	ProjectSection(SolutionItems) = preProject
+		doc\Client_Main.pdf = doc\Client_Main.pdf
+		doc\Server_Main.pdf = doc\Server_Main.pdf
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Python Scripts", "Python Scripts", "{21795B0B-70F4-491D-A2A5-D8DCF5A8B2D3}"
+	ProjectSection(SolutionItems) = preProject
+		doc\Python Scripts\concatfiles.md = doc\Python Scripts\concatfiles.md
+		doc\Python Scripts\generateAddressBook.md = doc\Python Scripts\generateAddressBook.md
+		doc\Python Scripts\sort.md = doc\Python Scripts\sort.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		People\People.projitems*{3ec2f2b9-d51c-45c5-b444-ce6a634bf33e}*SharedItemsImports = 4
@@ -56,5 +69,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{21795B0B-70F4-491D-A2A5-D8DCF5A8B2D3} = {7D5C4653-CD47-4048-8C32-7FBC790B0B15}
 	EndGlobalSection
 EndGlobal

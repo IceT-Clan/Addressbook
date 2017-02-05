@@ -49,12 +49,15 @@ namespace Addressbook {
 
                 // Hole Adressbuch
                 case 2:
-                    holeAdressbuch();
+                    getWholeAddressbook();
                     break;
 
                 case 9:
                     break;
 
+                case 10:
+                    view.Debug();
+                    break;
                 default:
                     break;
             } // Ende switch
@@ -65,12 +68,12 @@ namespace Addressbook {
         private int Menu() {
             int auswahl = 0;
 
-            this.view.ShowMenu();
+            this.view.Refresh(ViewMode.Menu_Main);
 
             // Auswahl lesen
             do {
                 auswahl = Convert.ToInt32(Console.ReadLine());
-            } while (auswahl < 1 || auswahl > 9);
+            } while (auswahl < 1 || auswahl > 11);
 
             Console.WriteLine();
 
@@ -107,11 +110,12 @@ namespace Addressbook {
                     List<Person> result = new List<Person>();
 
                     for (int i = 0; i < anzahl; i++) {
-                        result.Add(new Person(client.ReadLine(), ','));
+                        result.Add(new Person(this.client.ReadLine(), ','));
                     } // Ende for
 
                     // Daten anzeigen
-                    view.Refresh(result);
+                    this.view.Data = result;
+                    this.view.Refresh(ViewMode.MultipleEntries);
 
                 } // End if
 
@@ -124,7 +128,7 @@ namespace Addressbook {
 
         }
 
-        private void holeAdressbuch() {
+        private void getWholeAddressbook() {
             client = new ClientSocket(host, port);
             try {
                 client.Connect();
@@ -136,7 +140,8 @@ namespace Addressbook {
                     for (int i = 0; i < count; i++) {
                         result.Add(new Person(client.ReadLine(), ','));
                     }
-                    view.Refresh(result);
+                    this.view.Data = result;
+                    this.view.Refresh(ViewMode.MultipleEntries);
                 }
                 client.Close();
             } catch (Exception e) {
