@@ -34,13 +34,16 @@ namespace Addressbook {
             Console.Clear();
             switch (this.mode) {
                 case ViewMode.Title:
+                    Display_Title();
                     break;
                 case ViewMode.Connecting:
+                    Display_Title();
                     break;
                 case ViewMode.Menu_Main:
                     Display_MenuMain();
                     break;
                 case ViewMode.SingleEntry:
+                    Display_MultipleEntries();
                     break;
                 case ViewMode.MultipleEntries:
                     Display_MultipleEntries();
@@ -51,10 +54,52 @@ namespace Addressbook {
         /// <summary>
         /// Set new ViewMode and Refresh Display
         /// </summary>
-        /// <param name="mode"></param>
+        /// <param name="mode">ViewMode to switch to</param>
         public void Refresh(ViewMode mode) {
             this.mode = mode;
             Refresh();
+        }
+
+        private void Display_Title() {
+            const Int32 titleWidth = 48;
+            const Int32 offsetY = 3;
+            const Int32 offsetTitle_TextY = 8;
+            Int32 offsetTitleX = Console.WindowWidth / 2 - titleWidth / 2;
+            String offsetTitleXstr = MultiplyChar(' ', offsetTitleX);
+            const String text = "Press a Button to start";
+            Int32 offsetTextX = Console.WindowWidth / 2 - text.Length / 2;
+            String offsetTextXstr = MultiplyChar(' ', offsetTextX);
+
+            Console.Write(MultiplyChar('\n', offsetY));
+            Console.WriteLine(offsetTitleXstr + @"  _____ _        _ _    ____              _    ");
+            Console.WriteLine(offsetTitleXstr + @" / ____| |      | | |  |  _ \            | |   ");
+            Console.WriteLine(offsetTitleXstr + @"| (___ | |_ __ _| | | _| |_) | ___   ___ | | __");
+            Console.WriteLine(offsetTitleXstr + @" \___ \| __/ _` | | |/ /  _ < / _ \ / _ \| |/ /");
+            Console.WriteLine(offsetTitleXstr + @" ____) | || (_| | |   <| |_) | (_) | (_) |   < ");
+            Console.WriteLine(offsetTitleXstr + @"|_____/ \__\__,_|_|_|\_\____/ \___/ \___/|_|\_\");
+            Console.Write(MultiplyChar('\n', offsetTitle_TextY));
+            Console.WriteLine(offsetTextXstr + text);
+        }
+
+        private void Display_Connecting() {
+            const Int32 titleWidth = 48;
+            const Int32 offsetY = 2;
+            const Int32 offsetTitle_TextY = 3;
+            Int32 offsetTitleX = Console.WindowWidth / 2 - titleWidth / 2;
+            String offsetTitleXstr = MultiplyChar(' ', offsetTitleX);
+            const String text = "Press a Button to start";
+            Int32 offsetTextX = Console.WindowWidth / 2 - text.Length / 2;
+            String offsetTextXstr = MultiplyChar(' ', offsetTextX);
+
+            Console.Write(MultiplyChar('\n', offsetY));
+            Console.WriteLine(offsetTitleXstr + @"  _____ _        _ _    ____              _    ");
+            Console.WriteLine(offsetTitleXstr + @" / ____| |      | | |  |  _ \            | |   ");
+            Console.WriteLine(offsetTitleXstr + @"| (___ | |_ __ _| | | _| |_) | ___   ___ | | __");
+            Console.WriteLine(offsetTitleXstr + @" \___ \| __/ _` | | |/ /  _ < / _ \ / _ \| |/ /");
+            Console.WriteLine(offsetTitleXstr + @" ____) | || (_| | |   <| |_) | (_) | (_) |   < ");
+            Console.WriteLine(offsetTitleXstr + @"|_____/ \__\__,_|_|_|\_\____/ \___/ \___/|_|\_\");
+            Console.Write(MultiplyChar('\n', offsetTitle_TextY));
+            Console.WriteLine("Connecting to Server..");
         }
 
         private void Display_MenuMain() {
@@ -89,15 +134,7 @@ namespace Addressbook {
             Console.CursorTop = Console.WindowHeight;
             Console.Write("$ INPUT> ");
         }
-        private String phone_h;
-        private String phone_w;
-        private String email;
-        private String color;
-        private Int32 height;
-        private Int32 weight;
-        private String blood;
-        private String eye;
-        private String hair;
+
         private void Display_MultipleEntries() {
             const Int32 offsetFromBorderX = 2;
             const Int32 borderWidth = 54;
@@ -117,13 +154,15 @@ namespace Addressbook {
                 Console.WriteLine("┃" + offsetFromBorderXstr + ("Blood Type: " + person.Blood.PadRight(borderWidth)).Substring(0, borderWidth - 2) + "┃");
                 Console.WriteLine("┃" + offsetFromBorderXstr + ("Eye Color: " + person.Eye.PadRight(borderWidth)).Substring(0, borderWidth - 2) + "┃");
                 Console.WriteLine("┃" + offsetFromBorderXstr + ("Hair Type: " + person.Hair.PadRight(borderWidth)).Substring(0, borderWidth - 2) + "┃");
-                //Console.Write(person);
                 Console.WriteLine("┣" + borderHorizontal + "┫");
             }
             Console.CursorTop--;
             Console.WriteLine("┗" + borderHorizontal + "┛");
         }
 
+        /// <summary>
+        /// Debug View
+        /// </summary>
         public void Debug() {
             this.data = new List<Person> {
                 new Person("Name",
@@ -146,12 +185,12 @@ namespace Addressbook {
             }
         }
 
-        private String MultiplyChar(Char character, Int32 factor) {
-            String output = "";
-            for (Int32 i = factor; i > 0; i--) {
-                output += character;
-            }
-            return output;
-        }
+        /// <summary>
+        /// Return a string with factor times character
+        /// </summary>
+        /// <param name="character">A Char to repeat</param>
+        /// <param name="factor">How often to repeat</param>
+        /// <returns></returns>
+        private String MultiplyChar(Char character, Int32 factor) => "".PadRight(factor, character);
     }
 }

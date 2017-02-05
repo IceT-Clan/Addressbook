@@ -21,13 +21,10 @@ namespace Addressbook {
                 }
             }
 
-            int eingabe;
-            do {
-                // Controller-Objekt erstellen
-                ControllerClient controller = new ControllerClient(host, port);
-                eingabe = controller.Start();
-            } while (eingabe != 9);
-
+            ControllerClient controller = new ControllerClient(host, port);
+            controller.Start();
+            Console.WriteLine("Press a Button to exit...");
+            Console.ReadKey(false);
         }
     }
 }

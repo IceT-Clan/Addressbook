@@ -29,7 +29,7 @@ namespace Sockets {
                 this.socket.Connect(this.endPoint);
             } catch (Exception e) {
                 Debug.WriteLine(e.Message);
-                throw;
+                return false;
             }
             return true;
         }
@@ -52,6 +52,10 @@ namespace Sockets {
 
         public char Read(byte[] b, int len) => (char)this.socket.Receive(b, len, SocketFlags.None);
 
+        /// <summary>
+        /// Receive bytes from server until newline
+        /// </summary>
+        /// <returns>String with bytes from server (without newline)</returns>
         public string ReadLine() {
             byte[] recvbuffer = new byte[1];
             ASCIIEncoding encoding = new ASCIIEncoding();

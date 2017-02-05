@@ -3,82 +3,66 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Sockets;
 using People;
+using Commands;
 
 namespace Addressbook {
-    enum ServerCommand {
-        NONE,
-        FINDPERSONS,
-        GETALLPERSONS,
-        ADDPERSON,
-        DELETEPERSON
-    }
-
-    enum ClientInfo {
-        NOMOREDATA,
-        MOREDATA
-    }
-
     class ControllerClient {
         private ClientSocket client;
         private View view;
         private string host;
         private int port;
 
-        public ControllerClient(string _host, int _port) {
-            this.host = _host;
-            this.port = _port;
-            // Zugriff auf die View
+        public ControllerClient(string host, int port) {
+            this.host = host;
+            this.port = port;
             this.view = new View();
         }
 
         // Hiermit wird der Client gestartet
-        public int Start() {
-            // Hier erfolgt die Interaktion mit dem Benutzer
-            // Die Ausgaben können in einem View-Objekt erfolgen
+        public void Start() {
+            this.view.Refresh(ViewMode.Title);
+            Console.ReadKey(false);
 
-            int eingabe = 0;
+            // check if server exists and return info
+            this.view.Refresh(ViewMode.Connecting);
+            this.client = new ClientSocket(this.host, this.port);
+            if (!this.client.Connect()) {
+                Console.WriteLine(String.Format("Server at {0}:{1} is not available", this.host, this.port));
+                return;
+            }
+            GetServerInformation();
+            this.client.Close();
 
-            // Menü ausgeben und Auswahl treffen
-            eingabe = Menu();
 
-            switch (eingabe) {
-                // Suche Personen
-                case 1:
-                    suchePersonen();
-                    break;
-
-                // Hole Adressbuch
-                case 2:
-                    getWholeAddressbook();
-                    break;
-
-                case 9:
-                    break;
-
-                case 10:
-                    view.Debug();
-                    break;
-                default:
-                    break;
-            } // Ende switch
-
-            return eingabe;
+            Boolean notExit = true;
+            while (notExit) {
+                this.view.Refresh(ViewMode.Menu_Main);
+                string input = Console.ReadLine();
+                switch (input) {
+                    case "1":
+                        suchePersonen();
+                        break;
+                    case "2":
+                        getWholeAddressbook();
+                        break;
+                    case "9":
+                        notExit = true;
+                        break;
+                    case "10":
+                        this.view.Debug();
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
-        private int Menu() {
-            int auswahl = 0;
+        private void GetServerInformation() {
+            this.client.Write((int)ServerCommand.GetServerInformation);
+            if (this.client.Read() != (int)ServerStatus.Online) return;
+            String entries = this.client.ReadLine();
 
-            this.view.Refresh(ViewMode.Menu_Main);
-
-            // Auswahl lesen
-            do {
-                auswahl = Convert.ToInt32(Console.ReadLine());
-            } while (auswahl < 1 || auswahl > 11);
-
-            Console.WriteLine();
-
-            // auswahl zurück liefern
-            return auswahl;
+            Console.WriteLine(String.Format("Server has {0} Entries", entries));
         }
 
         private void suchePersonen() {

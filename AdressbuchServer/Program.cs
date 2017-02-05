@@ -18,9 +18,10 @@ namespace Addressbook {
                 }
             }
 
-            ControllerServer c = new ControllerServer(port, adressbook);
-            c.Start();
-
+            ControllerServer controller = new ControllerServer(port, adressbook);
+            controller.Start();
+            Console.WriteLine("Press a Button to exit...");
+            Console.ReadKey(false);
         }
     }
 }
