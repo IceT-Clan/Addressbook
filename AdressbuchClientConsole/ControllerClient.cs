@@ -9,8 +9,9 @@ namespace Addressbook {
     class ControllerClient {
         private ClientSocket client;
         private View view;
-        private string host;
-        private int port;
+        private String host;
+        private Int32 port;
+        private Char seperator;
 
         public ControllerClient(string host, int port) {
             this.host = host;
@@ -18,7 +19,6 @@ namespace Addressbook {
             this.view = new View();
         }
 
-        // Hiermit wird der Client gestartet
         public void Start() {
             this.view.Refresh(ViewMode.Title);
             Console.ReadKey(false);
@@ -33,17 +33,16 @@ namespace Addressbook {
             GetServerInformation();
             this.client.Close();
 
-
             Boolean notExit = true;
             while (notExit) {
                 this.view.Refresh(ViewMode.Menu_Main);
-                string input = Console.ReadLine();
+                String input = Console.ReadLine();
                 switch (input) {
                     case "1":
-                        suchePersonen();
+                        SearchPerson();
                         break;
                     case "2":
-                        getWholeAddressbook();
+                        GetWholeAddressbook();
                         break;
                     case "9":
                         notExit = true;
@@ -60,78 +59,67 @@ namespace Addressbook {
         private void GetServerInformation() {
             this.client.Write((int)ServerCommand.GetServerInformation);
             if (this.client.Read() != (int)ServerStatus.Online) return;
+
+            Char seperator = this.client.Read();
             String entries = this.client.ReadLine();
 
-            Console.WriteLine(String.Format("Server has {0} Entries", entries));
+            Console.WriteLine(String.Format("Server uses {0} as seperator", seperator));
+            Console.WriteLine(String.Format("Server has {0} total entries", entries));
+
+            this.seperator = seperator;
         }
 
-        private void suchePersonen() {
+        private void SearchPerson() {
             // Suchbegriff abfragen
-            Console.Write("Suchbegriff> ");
-            string suchbegriff = Console.ReadLine();
+            Console.Write("Search> ");
+            string pattern = Console.ReadLine();
 
 
             // Hier müsste eine Ausnahmebehandlung erfolgen
             // falls keine Verbindung möglich ist
-            client = new ClientSocket(host, port);
-            try {
+            this.client = new ClientSocket(this.host, this.port);
 
-                // Verbindung mit Server herstellen
-                client.Connect();
+            // Verbindung mit Server herstellen
+            this.client.Connect();
 
-                // Kommando senden
-                client.Write((int)ServerCommand.FINDPERSONS);
+            // Kommando senden
+            this.client.Write((int)ServerCommand.FINDPERSONS);
 
-                // Suchstring senden
-                client.Write(suchbegriff);
+            // search type
 
-                // Anzahl gefundener Personen lesen
-                int anzahl = client.Read();
 
-                Console.WriteLine("Anzahl gefundener Personen: {0}", anzahl);
+            // Suchstring senden
+            this.client.Write(pattern);
 
-                if (anzahl > 0) {
-                    List<Person> result = new List<Person>();
+            // Anzahl gefundener Personen lesen
+            int entryCount = this.client.Read();
 
-                    for (int i = 0; i < anzahl; i++) {
-                        result.Add(new Person(this.client.ReadLine(), ','));
-                    } // Ende for
+            Console.WriteLine("Found {0} entries", entryCount);
 
-                    // Daten anzeigen
-                    this.view.Data = result;
-                    this.view.Refresh(ViewMode.MultipleEntries);
-
-                } // End if
-
-                client.Close();
-
-            } catch (Exception e) {
-                Debug.WriteLine(e.Message);
-                throw;
+            if (entryCount > 0) {
+                List<Person> result = new List<Person>();
+                for (int i = 0; i < entryCount; i++) result.Add(new Person(this.client.ReadLine(), this.seperator));
+                this.view.Data = result;
+                this.view.Refresh(ViewMode.MultipleEntries);
             }
-
+            this.client.Close();
         }
 
-        private void getWholeAddressbook() {
-            client = new ClientSocket(host, port);
-            try {
-                client.Connect();
-                client.Write((int)ServerCommand.GETALLPERSONS);
-                int count = client.Read();
+        private void GetWholeAddressbook() {
+            this.client = new ClientSocket(this.host, this.port);
+            this.client.Connect();
 
-                if (count >= 1) {
-                    List<Person> result = new List<Person>();
-                    for (int i = 0; i < count; i++) {
-                        result.Add(new Person(client.ReadLine(), ','));
-                    }
-                    this.view.Data = result;
-                    this.view.Refresh(ViewMode.MultipleEntries);
-                }
-                client.Close();
-            } catch (Exception e) {
-                Debug.WriteLine(e.Message);
-                throw;
+            this.client.Write((int)ServerCommand.GETALLPERSONS);
+
+            int entryCount = this.client.Read();
+
+            if (entryCount > 0) {
+                List<Person> result = new List<Person>();
+                for (int i = 0; i < entryCount; i++) result.Add(new Person(this.client.ReadLine(), this.seperator));
+                this.view.Data = result;
+                this.view.Refresh(ViewMode.MultipleEntries);
             }
+            this.client.Close();
         }
     }
 }
