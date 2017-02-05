@@ -139,7 +139,8 @@ namespace Addressbook {
                     view.Refresh(result);
                 }
                 client.Close();
-            } catch (Exception) {
+            } catch (Exception e) {
+                Debug.WriteLine(e.Message);
                 throw;
             }
         }

@@ -109,27 +109,14 @@ namespace Addressbook {
 
         private void GetAllEntries(ClientSocket clientSocket) {
             List<Person> persons = this.model.GetAllEntries();
-            string separator = ";";
+            Char seperator = ';';
 
             clientSocket.Write(persons.Count);
 
             if (persons.Count > 0) {
-                foreach (Person p in persons) {
-                    string data = "";
-                    data += p.Name + separator;
-                    data += p.Address + separator;
-                    data += p.Birth_data.Date.ToShortDateString();
-                    data += p.Phone_h + separator;
-                    data += p.Phone_w + separator;
-                    data += p.Email + separator;
-                    data += p.Color + separator;
-                    data += p.Height + separator;
-                    data += p.Weight + separator;
-                    data += p.Blood + separator;
-                    data += p.Eye + separator;
-                    data += p.Hair + separator;
-                    data += p.Hair_color + separator;
-                    clientSocket.Write(data + "\n");
+                foreach (Person person in persons) {
+                    string data = person.ToString(seperator); 
+                    clientSocket.Write(data + '\n');
                 }
             }
         }
