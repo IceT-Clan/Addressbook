@@ -12,6 +12,7 @@ import threading
 from queue import Queue
 import colorama
 from collections import OrderedDict
+from time import sleep
 
 
 # -------------- Constant Variables ------------- #
@@ -56,7 +57,7 @@ parser.add_argument("-g", "--gender", default="random",
                     help="Gender for the generated identities")
 parser.add_argument("-c", "--count", help="How many identities do you want",
                     type=int, required=True)
-parser.add_argument("-t", "--threads", default=404, type=int,
+parser.add_argument("-t", "--threads", default=512, type=int,
                     help="Num of threats to use")
 
 args = parser.parse_args()
@@ -88,7 +89,7 @@ ch.setFormatter(formatter)
 # add ch to logger
 logger.addHandler(ch)
 
-encoding = "utf-8"
+encoding = "utf-16"
 encoding_mode = "replace"
 if sys.stdout.encoding != encoding:
     sys.stdout = codecs.getwriter(encoding)(sys.stdout.buffer, encoding_mode)
@@ -160,7 +161,7 @@ def main():
     # count = args.count
     fieldnames = ID_PRESETS[current_preset]
 
-    for i in range(404):
+    for i in range(args.threads):
         t = threading.Thread(target=worker)
         t.daemon = True
         t.start()
@@ -173,26 +174,35 @@ def main():
     q.join()
     time_needed = time.perf_counter()
 
-    # for count in range(args.count):
-    #     workIdentity(url, fieldnames, fake_names, count)
-
     # concat email
     ID_PRESETS[current_preset].remove("email_u")
     ID_PRESETS[current_preset].remove("email_d")
 
     # output fakenames to file
-    with open(args.output, 'w',
-              encoding=encoding, errors=encoding_mode) as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        csvfile.write("#")
-        writer.writeheader()
-        # writer.writerows(fake_names)
-        for identity in fake_names:
-            line = str()
-            for entry in fieldnames:
-                line += identity[entry] + ','
-            line = line[:-1] + '\n'
-            csvfile.write(line)
+    while(True):
+        try:
+            with open(args.output, 'w',
+                      encoding=encoding, errors=encoding_mode) as csvfile:
+                writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+                csvfile.write("#")
+                writer.writeheader()
+                for identity in fake_names:
+                    line = str()
+                    for i in range(len(fieldnames)):
+                        entry = identity[fieldnames[i]]
+                        if (',' in entry):
+                            line += '"' + entry + '"'
+                        else:
+                            line += entry
+                        line += ','
+                    # for entry in fieldnames:
+                        # line += identity[entry] + ','
+                    line = line[:-1] + '\n'
+                    csvfile.write(line)
+            break
+        except Exception as e:
+            logger.error(e)
+            sleep(.100)
 
     logger.info("""Statistics:
                    Time needed: {}
