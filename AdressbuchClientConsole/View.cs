@@ -71,12 +71,7 @@ namespace Addressbook {
             String offsetTextXstr = MultiplyChar(' ', offsetTextX);
 
             Console.Write(MultiplyChar('\n', offsetY));
-            Console.WriteLine(offsetTitleXstr + @"  _____ _        _ _    ____              _    ");
-            Console.WriteLine(offsetTitleXstr + @" / ____| |      | | |  |  _ \            | |   ");
-            Console.WriteLine(offsetTitleXstr + @"| (___ | |_ __ _| | | _| |_) | ___   ___ | | __");
-            Console.WriteLine(offsetTitleXstr + @" \___ \| __/ _` | | |/ /  _ < / _ \ / _ \| |/ /");
-            Console.WriteLine(offsetTitleXstr + @" ____) | || (_| | |   <| |_) | (_) | (_) |   < ");
-            Console.WriteLine(offsetTitleXstr + @"|_____/ \__\__,_|_|_|\_\____/ \___/ \___/|_|\_\");
+            Title(offsetTitleXstr);
             Console.Write(MultiplyChar('\n', offsetTitle_TextY));
             Console.WriteLine(offsetTextXstr + text);
         }
@@ -92,12 +87,7 @@ namespace Addressbook {
             String offsetTextXstr = MultiplyChar(' ', offsetTextX);
 
             Console.Write(MultiplyChar('\n', offsetY));
-            Console.WriteLine(offsetTitleXstr + @"  _____ _        _ _    ____              _    ");
-            Console.WriteLine(offsetTitleXstr + @" / ____| |      | | |  |  _ \            | |   ");
-            Console.WriteLine(offsetTitleXstr + @"| (___ | |_ __ _| | | _| |_) | ___   ___ | | __");
-            Console.WriteLine(offsetTitleXstr + @" \___ \| __/ _` | | |/ /  _ < / _ \ / _ \| |/ /");
-            Console.WriteLine(offsetTitleXstr + @" ____) | || (_| | |   <| |_) | (_) | (_) |   < ");
-            Console.WriteLine(offsetTitleXstr + @"|_____/ \__\__,_|_|_|\_\____/ \___/ \___/|_|\_\");
+            Title(offsetTitleXstr);
             Console.Write(MultiplyChar('\n', offsetTitle_TextY));
             Console.WriteLine("Connecting to Server..");
         }
@@ -113,12 +103,7 @@ namespace Addressbook {
             String offsetMenuXstr = MultiplyChar(' ', offsetMenuX);
 
             Console.Write(MultiplyChar('\n', offsetY));
-            Console.WriteLine(offsetTitleXstr + @"  _____ _        _ _    ____              _    ");
-            Console.WriteLine(offsetTitleXstr + @" / ____| |      | | |  |  _ \            | |   ");
-            Console.WriteLine(offsetTitleXstr + @"| (___ | |_ __ _| | | _| |_) | ___   ___ | | __");
-            Console.WriteLine(offsetTitleXstr + @" \___ \| __/ _` | | |/ /  _ < / _ \ / _ \| |/ /");
-            Console.WriteLine(offsetTitleXstr + @" ____) | || (_| | |   <| |_) | (_) | (_) |   < ");
-            Console.WriteLine(offsetTitleXstr + @"|_____/ \__\__,_|_|_|\_\____/ \___/ \___/|_|\_\");
+            Title(offsetTitleXstr);
             Console.Write(MultiplyChar('\n', offsetTitle_MenuY));
             Console.WriteLine(offsetMenuXstr + "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
             Console.WriteLine(offsetMenuXstr + "┃      [1] - Search Person          ┃");
@@ -158,6 +143,19 @@ namespace Addressbook {
             }
             Console.CursorTop--;
             Console.WriteLine("┗" + borderHorizontal + "┛");
+        }
+
+        /// <summary>
+        /// Display Title
+        /// </summary>
+        /// <param name="offsetXstr">Offset to left of title</param>
+        private void Title(String offsetXstr) {
+            Console.WriteLine(offsetXstr + @"  _____ _        _ _    ____              _    ");
+            Console.WriteLine(offsetXstr + @" / ____| |      | | |  |  _ \            | |   ");
+            Console.WriteLine(offsetXstr + @"| (___ | |_ __ _| | | _| |_) | ___   ___ | | __");
+            Console.WriteLine(offsetXstr + @" \___ \| __/ _` | | |/ /  _ < / _ \ / _ \| |/ /");
+            Console.WriteLine(offsetXstr + @" ____) | || (_| | |   <| |_) | (_) | (_) |   < ");
+            Console.WriteLine(offsetXstr + @"|_____/ \__\__,_|_|_|\_\____/ \___/ \___/|_|\_\");
         }
 
         /// <summary>

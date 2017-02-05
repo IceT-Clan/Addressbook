@@ -26,8 +26,9 @@ namespace Addressbook {
             ReadAddressbook();
         }
 
-        public List<Person> Search(string pattern, SearchType searchType=SearchType.FIXED_STRING) {
+        public List<Person> Search(string pattern, SearchType searchType = SearchType.FIXED_STRING) {
             List<Person> results = new List<Person>();
+#pragma warning disable CS0162 // Unreachable code detected
             switch (searchType) {
                 case SearchType.BASIC_REGEX:
                     throw new NotImplementedException();
@@ -39,12 +40,13 @@ namespace Addressbook {
                     throw new NotImplementedException();
                     break;
                 case SearchType.FIXED_STRING:
-                    results = Search_fixed_string("ss");
+                    results = Search_fixed_string(pattern);
                     break;
                 default:
                     throw new NotImplementedException();
                     break;
             }
+#pragma warning restore CS0162 // Unreachable code detected
 
             return results;
         }
@@ -52,11 +54,13 @@ namespace Addressbook {
         private List<Person> Search_fixed_string(string pattern) {
             List<Person> result = new List<Person>();
             foreach (Person person in this.persons) {
-                if (person.Name.Contains(pattern) ||
-                    false) {
-                    result.Add(person);
-                } 
+                foreach (Object obj in person.ToList()) {
+                    if (obj.ToString().Contains(pattern)) {
+                        result.Add(person);
+                    }
+                }
             }
+
             return result;
         }
 

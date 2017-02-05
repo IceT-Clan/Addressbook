@@ -210,5 +210,19 @@ namespace People {
 
             return formatted;
         }
+
+        public IReadOnlyList<Object> ToList() => new List<Object> {
+                this.name,
+                this.address,
+                this.phone_h,
+                this.phone_w,
+                this.email,
+                this.color,
+                this.height,
+                this.weight,
+                this.blood,
+                this.eye,
+                this.hair
+            };
     }
 }

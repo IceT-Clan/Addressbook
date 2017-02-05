@@ -25,6 +25,7 @@ namespace Addressbook {
 
             // check if server exists and return info
             this.view.Refresh(ViewMode.Connecting);
+            Console.WriteLine(String.Format("Connecting to {0} on port {1}", this.host, this.port));
             this.client = new ClientSocket(this.host, this.port);
             if (!this.client.Connect()) {
                 Console.WriteLine(String.Format("Server at {0}:{1} is not available", this.host, this.port));
