@@ -54,9 +54,11 @@ namespace Addressbook {
                         break;
 
                     case ServerCommand.DELETEPERSON:
-                        RemEntry(client);
+                        RemEntry(client);   
                         break;
-
+                    case ServerCommand.GetServerInformation:
+                        SendServerInformation(client);
+                        break;
                     default:
                         break;
                 } // Ende switch
@@ -104,6 +106,15 @@ namespace Addressbook {
                     clientSocket.Write(data + '\n');
                 }
             }
+        }
+
+        private void SendServerInformation(ClientSocket clientSocket) {
+
+            Char seperator = ';';
+            clientSocket.Write((int)ServerStatus.Online);
+            clientSocket.Write(seperator);
+            clientSocket.Write(this.model.GetAllEntries().Count);
+            
         }
 
         private void AddNewEntry(ClientSocket clientSocket) {
