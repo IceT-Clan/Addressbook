@@ -69,7 +69,7 @@ namespace Sockets {
                 } else
                     isNotEnd = false;
             }
-            return recv;
+            return recv.Trim('\0');
         }
         public void Close() => this.socket.Close();
         public void Dispose() => this.socket.Dispose();

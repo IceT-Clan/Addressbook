@@ -92,6 +92,10 @@ namespace People {
             this.hair = hair;
         }
 
+        public Person() {
+
+        }
+
         public Person(Person person) {
             this.name = person.name;
             this.address = person.address;
