@@ -181,6 +181,7 @@ namespace People {
             String formatted = "";
             formatted += "Name: " + this.name + " \n";
             formatted += "Address: " + this.address + " \n";
+            formatted += "Birth Data: " + this.birth_data.ToShortDateString() + " \n";
             formatted += "Phone Home: " + this.phone_h + " \n";
             formatted += "Phone Work: " + this.phone_w + " \n";
             formatted += "Email: " + this.email + " \n";
@@ -196,17 +197,18 @@ namespace People {
 
         public String ToString(Char seperator) {
             String formatted = "";
-            formatted += "Name: " + this.name + seperator;
-            formatted += "Address: " + this.address + seperator;
-            formatted += "Phone Home: " + this.phone_h + seperator;
-            formatted += "Phone Work: " + this.phone_w + seperator;
-            formatted += "Email: " + this.email + seperator;
-            formatted += "Color: " + this.color + seperator;
-            formatted += "Height: " + this.height + seperator;
-            formatted += "Weight: " + this.weight + seperator;
-            formatted += "Blood: " + this.blood + seperator;
-            formatted += "Eye Color: " + this.eye + seperator;
-            formatted += "Hair: " + this.hair + seperator;
+            formatted += this.name + seperator;
+            formatted += this.address + seperator;
+            formatted += this.birth_data.ToShortDateString() + seperator;
+            formatted += this.phone_h + seperator;
+            formatted += this.phone_w + seperator;
+            formatted += this.email + seperator;
+            formatted += this.color + seperator;
+            formatted += this.height + seperator;
+            formatted += this.weight + seperator;
+            formatted += this.blood + seperator;
+            formatted += this.eye + seperator;
+            formatted += this.hair + seperator;
 
             return formatted;
         }
@@ -214,6 +216,7 @@ namespace People {
         public IReadOnlyList<Object> ToList() => new List<Object> {
                 this.name,
                 this.address,
+                this.birth_data,
                 this.phone_h,
                 this.phone_w,
                 this.email,
