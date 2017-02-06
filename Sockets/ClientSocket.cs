@@ -64,7 +64,7 @@ namespace Sockets {
             while (rcvbuffer[0] != '\n') {
                 socket.Receive(rcvbuffer);
                 System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
-                rcv += enc.GetString(rcvbuffer);
+                rcv += Encoding.Unicode.GetString(rcvbuffer);
             }
             //return recv.Trim('\0');
 
