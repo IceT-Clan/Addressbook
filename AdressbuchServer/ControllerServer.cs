@@ -54,7 +54,7 @@ namespace Addressbook {
                         break;
 
                     case ServerCommand.DELETEPERSON:
-                        RemEntry(client);
+                        RemEntry(client);   
                         break;
                     case ServerCommand.GetServerInformation:
                         SendServerInformation(client);
