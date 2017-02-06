@@ -14,7 +14,8 @@ namespace Sockets {
             this.serverSocket = new Socket(SocketType.Stream, ProtocolType.Tcp);
             IPHostEntry ipHostInfo = Dns.GetHostEntry("localhost");
             IPAddress ipAddress = ipHostInfo.AddressList[1];
-            IPEndPoint localEndPoint = new IPEndPoint(ipAddress, port);
+            //IPEndPoint localEndPoint = new IPEndPoint(ipAddress, port);
+            IPEndPoint localEndPoint = new IPEndPoint(0, port);
 
             try {
                 this.serverSocket.Bind(localEndPoint);
