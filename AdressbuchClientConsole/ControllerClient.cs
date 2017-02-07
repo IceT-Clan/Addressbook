@@ -86,7 +86,7 @@ namespace Addressbook {
             this.client.Connect();
 
             // Kommando senden
-            this.client.Write((int)ServerCommand.FINDPERSONS);
+            this.client.Write((int)ServerCommand.FindPersons);
 
             // search type
 
@@ -112,7 +112,7 @@ namespace Addressbook {
             this.client = new ClientSocket(this.host, this.port);
             this.client.Connect();
 
-            this.client.Write((int)ServerCommand.GETALLPERSONS);
+            this.client.Write((int)ServerCommand.GetAllPersons);
 
             Int32 entryCount = this.client.Read();
 
