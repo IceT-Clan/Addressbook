@@ -89,38 +89,26 @@ namespace Addressbook {
         }
 
         private void SearchPerson() {
-            // Suchbegriff abfragen
+            this.client = new ClientSocket(this.host, this.port);
+            this.client.Connect();
+
             Console.Write("Search> ");
             string pattern = Console.ReadLine();
 
-
-            // Hier müsste eine Ausnahmebehandlung erfolgen
-            // falls keine Verbindung möglich ist
-            this.client = new ClientSocket(this.host, this.port);
-
-            // Verbindung mit Server herstellen
-            this.client.Connect();
-
-            // Kommando senden
             this.client.Write((int)ServerCommand.FindPersons);
 
             // search type
 
-
             // Suchstring senden
-            this.client.Write(pattern);
+            this.client.WriteLine(pattern);
 
             // Anzahl gefundener Personen lesen
             int entryCount = this.client.Read();
 
             Console.WriteLine("Found {0} entries", entryCount);
 
-            if (entryCount > 0) {
-                List<Person> result = new List<Person>();
-                for (int i = 0; i < entryCount; i++) result.Add(new Person(this.client.ReadLine(), this.seperator));
-                this.view.Data = result;
-                this.view.Refresh(ViewMode.MultipleEntries);
-            }
+            for (int i = 0; i < entryCount; i++) this.view.Data.Add(new Person(this.client.ReadLine(), this.seperator));
+            this.view.Refresh(ViewMode.MultipleEntries);
             this.client.Close();
         }
 
@@ -132,12 +120,9 @@ namespace Addressbook {
 
             Int32 entryCount = this.client.Read();
 
-            if (entryCount > 0) {
-                List<Person> result = new List<Person>();
-                for (int i = 0; i < entryCount; i++) result.Add(new Person(this.client.ReadLine(), this.seperator));
-                this.view.Data = result;
-                this.view.Refresh(ViewMode.MultipleEntries);
-            }
+            this.view.Data.Clear();
+            for (int i = 0; i < entryCount; i++) this.view.Data.Add(new Person(this.client.ReadLine(), this.seperator));
+            this.view.Refresh(ViewMode.MultipleEntries);
             this.client.Close();
         }
     }
