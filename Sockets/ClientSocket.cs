@@ -57,19 +57,18 @@ namespace Sockets {
         /// </summary>
         /// <returns>String with bytes from server (without newline)</returns>
         public string ReadLine() {
-            byte[] recvbuffer = new byte[1];
-            ASCIIEncoding encoding = new ASCIIEncoding();
-            string recv = "";
-            bool isNotEnd = true;
-    
-            while (isNotEnd) {
-                this.socket.Receive(recvbuffer);
-                if (recvbuffer[0] != '\n') {
-                    recv += (char)recvbuffer[0];
-                } else
-                    isNotEnd = false;
+            string rcv = "";
+            byte[] rcvbuffer = new byte[1];
+            rcvbuffer[0] = 0;
+
+            while (rcvbuffer[0] != '\n') {
+                socket.Receive(rcvbuffer);
+                System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
+                rcv += Encoding.Unicode.GetString(rcvbuffer);
             }
-            return recv;
+            //return recv.Trim('\0');
+
+            return rcv.Substring(0, rcv.Length - 1);
         }
         public void Close() => this.socket.Close();
         public void Dispose() => this.socket.Dispose();
