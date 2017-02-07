@@ -1,4 +1,14 @@
 #!/bin/python3
+"""
+Generate a addressbook with fake indentities.
+
+Author:
+    Nikolai Zimmemann
+Description:
+    Generate a addressbook with fake indentities.
+    Pull identities from a WebAPI with several concurrent threads.
+    Sort them and write them in CSV Format in a file
+"""
 
 import argparse
 import logging
@@ -16,24 +26,22 @@ from time import sleep
 
 
 # -------------- Constant Variables ------------- #
-ID_PRESETS = {
-    "default": [
-        "name",
-        "address",
-        "birth_data",
-        "phone_h",
-        "phone_w",
-        "email_u",
-        "email_d",
-        "email",
-        "color",
-        "height",
-        "weight",
-        "blood",
-        "eye",
-        "hair"
-    ]
-}
+ID_PRESET = [
+    "name",
+    "address",
+    "birth_data",
+    "phone_h",
+    "phone_w",
+    "email_u",
+    "email_d",
+    "email",
+    "color",
+    "height",
+    "weight",
+    "blood",
+    "eye",
+    "hair"
+]
 
 NAMEFAKE_URL = "http://api.namefake.com/{}/{}"
 lock = threading.Lock()
@@ -58,7 +66,7 @@ parser.add_argument("-g", "--gender", default="random",
 parser.add_argument("-c", "--count", help="How many identities do you want",
                     type=int, required=True)
 parser.add_argument("-t", "--threads", default=512, type=int,
-                    help="Num of threats to use")
+                    help="Number of threads to concurrently access the API")
 
 args = parser.parse_args()
 
@@ -99,6 +107,7 @@ if sys.stderr.encoding != encoding:
 
 # -------------- Functions -------------- #
 def toString(var):
+    """Return the string representation of a variable of any type."""
     if isinstance(var, str):
         string = var
     elif isinstance(var, (int, float)):
@@ -107,9 +116,10 @@ def toString(var):
 
 
 def getIdentityFromServer(url, fieldnames):
+    """Get a identity from url matching fieldnames."""
     try:
         request = requests.get(url)
-    except requests.exceptions.ConnectionError as e:
+    except requests.exceptions.ConnectionError:
         return None
     data = json.JSONDecoder().decode(request.text)
     identity = OrderedDict()
@@ -129,6 +139,7 @@ def getIdentityFromServer(url, fieldnames):
 
 
 def workIdentity(url, fieldnames, fake_names):
+    """Call getIdentityFromServer and store output in fake_names."""
     while True:
         identity = getIdentityFromServer(url, fieldnames)
         if not identity:
@@ -146,6 +157,7 @@ def workIdentity(url, fieldnames, fake_names):
 
 
 def worker():
+    """Call workIdentity until a succesfull run."""
     while True:
         url, fieldnames, fake_names = q.get()
         workIdentity(url, fieldnames, fake_names)
@@ -153,13 +165,16 @@ def worker():
 
 
 def main():
+    """
+    Main function.
+
+    TODO: Description.
+    """
     # get fake names
     logger.info("Getting {} identities".format(args.count))
-    current_preset = "default"
     url = NAMEFAKE_URL.format(args.origin, args.gender)
     fake_names = list()
-    # count = args.count
-    fieldnames = ID_PRESETS[current_preset]
+    fieldnames = ID_PRESET
 
     for i in range(args.threads):
         t = threading.Thread(target=worker)
@@ -175,8 +190,8 @@ def main():
     time_needed = time.perf_counter()
 
     # concat email
-    ID_PRESETS[current_preset].remove("email_u")
-    ID_PRESETS[current_preset].remove("email_d")
+    ID_PRESET.remove("email_u")
+    ID_PRESET.remove("email_d")
 
     # output fakenames to file
     while(True):
