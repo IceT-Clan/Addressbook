@@ -41,9 +41,11 @@ namespace Addressbook {
                 switch (input) {
                     case "1":
                         SearchPerson();
+                        Console.ReadKey();
                         break;
                     case "2":
                         GetWholeAddressbook();
+                        Console.ReadKey();
                         break;
                     case "9":
                         notExit = true;
@@ -62,7 +64,7 @@ namespace Addressbook {
             if (this.client.Read() != (int)ServerStatus.Online) return;
 
             Char seperator = this.client.Read();
-            Char entries = this.client.Read();
+            Int32 entries = this.client.Read();
 
             Console.WriteLine(String.Format("Server uses {0} as seperator", seperator));
             Console.WriteLine(String.Format("Server has {0} total entries", entries));
@@ -112,7 +114,7 @@ namespace Addressbook {
 
             this.client.Write((int)ServerCommand.GETALLPERSONS);
 
-            int entryCount = this.client.Read();
+            Int32 entryCount = this.client.Read();
 
             if (entryCount > 0) {
                 List<Person> result = new List<Person>();
