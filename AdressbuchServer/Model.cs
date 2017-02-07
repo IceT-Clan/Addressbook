@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using People;
+using System.Text.RegularExpressions;
 
 namespace Addressbook {
     enum SearchType {
@@ -15,8 +16,9 @@ namespace Addressbook {
     // und notwendige Methoden für die Datenverarbeitung
     // zur Verfügung
     class Model {
-        private string path;
+        private String path;
         private List<Person> persons;
+        private Char seperator;
 
         public List<Person> Persons {
             get { return this.persons; }
@@ -24,17 +26,20 @@ namespace Addressbook {
         }
 
         public void AddPerson(Person person) => this.persons.Add(person);
-        public void RemovePerson(Person person) => this.persons.RemoveAll(x => x.ToString() == person.ToString());
+        public void RemovePerson(Person person) => this.persons.RemoveAll(x => x == person);
         public void AddPersonList(List<Person> persons) => this.persons.AddRange(persons);
 
-        public Model(string path) {
+        public Model(String path, Char seperator = ',') {
             this.persons = new List<Person>();
             this.path = path;
+            this.seperator = seperator;
 
             ReadAddressbook();
         }
 
-        public List<Person> Search(string pattern, SearchType searchType = SearchType.FIXED_STRING) {
+        ~Model() => WriteAddressBook();
+
+        public List<Person> Search(String pattern, SearchType searchType = SearchType.FIXED_STRING) {
             List<Person> results = new List<Person>();
 #pragma warning disable CS0162 // Unreachable code detected
             switch (searchType) {
@@ -42,7 +47,7 @@ namespace Addressbook {
                     throw new NotImplementedException();
                     break;
                 case SearchType.REGEX:
-                    throw new NotImplementedException();
+                    //results = Search_regex(pattern);
                     break;
                 case SearchType.PERL_REGEX:
                     throw new NotImplementedException();
@@ -59,34 +64,16 @@ namespace Addressbook {
             return results;
         }
 
-        private List<Person> Search_fixed_string(string pattern) {
-            List<Person> result = new List<Person>();
-            foreach (Person person in this.persons) {
-                foreach (Object obj in person.ToList()) {
-                    if (obj.ToString().Contains(pattern)) {
-                        result.Add(person);
-                    }
-                }
-            }
+        private List<Person> Search_fixed_string(String pattern) => this.persons.FindAll(x => x.ToList().Exists(y => y.ToString().Contains(pattern)));
 
-            return result;
-        }
+        //private List<Person> Search_regex(String pattern) => this.persons.FindAll(x => x.ToList().)
 
         private void WriteAddressBook() {
             Console.WriteLine("Saving Addressbook...");
-            List<Person> toWrite = new List<Person>();
-            DateTime startTime = DateTime.Now;
-            Int32 oldLineCount = 0;
+            List<String> lines = new List<String>();
 
-            foreach (String line in File.ReadAllLines(this.path)) {
-                oldLineCount++;
-                Person person = new Person(line);
-                if (this.persons.Contains(person)) {
-                    toWrite.Add(person);
-                }
-            }
-            Console.WriteLine()
-
+            this.persons.ForEach(delegate (Person person) { lines.Add(person.ToString(this.seperator)); });
+            File.WriteAllLines(this.path, lines, System.Text.Encoding.UTF8);
         }
 
         public List<Person> GetAllEntries() => this.persons;
