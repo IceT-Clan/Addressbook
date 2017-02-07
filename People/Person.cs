@@ -166,6 +166,7 @@ namespace People {
                     goto case 3;
                 case 3:
                     DateTime.TryParseExact(entries[2], "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out this.birth_data);
+                    // FIXME: ^ always returns 1
                     goto case 2;
                 case 2:
                     this.address = entries[1];
