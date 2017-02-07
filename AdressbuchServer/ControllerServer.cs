@@ -14,7 +14,7 @@ namespace Addressbook {
             this.server = new ServerSocket(port);
         }
 
-        private void Log(params object[] args) => Console.Write(String.Format("[{0}] {1}", DateTime.Now.ToShortTimeString(), args));
+        private void Log(String arg) => Console.Write(String.Format("[{0}] {1}", DateTime.Now.ToShortTimeString(), arg));
 
         public void Start() {
             bool hasNotStopped = true;
