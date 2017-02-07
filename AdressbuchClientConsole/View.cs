@@ -11,6 +11,7 @@ namespace Addressbook {
         Menu_Main,
         SingleEntry,
         MultipleEntries,
+        EntriesID,
     }
 
     class View {
@@ -47,6 +48,9 @@ namespace Addressbook {
                     break;
                 case ViewMode.MultipleEntries:
                     Display_MultipleEntries();
+                    break;
+                case ViewMode.EntriesID:
+
                     break;
             }
         }
@@ -141,6 +145,34 @@ namespace Addressbook {
                 Console.WriteLine("┃" + offsetFromBorderXstr + ("Eye Color: " + person.Eye.PadRight(borderWidth)).Substring(0, borderWidth - 2) + "┃");
                 Console.WriteLine("┃" + offsetFromBorderXstr + ("Hair Type: " + person.Hair.PadRight(borderWidth)).Substring(0, borderWidth - 2) + "┃");
                 Console.WriteLine("┣" + borderHorizontal + "┫");
+            }
+            Console.CursorTop--;
+            Console.WriteLine("┗" + borderHorizontal + "┛");
+        }
+
+        private void Display_EntriesID() {
+            const Int32 offsetFromBorderX = 2;
+            const Int32 borderWidth = 54;
+            String offsetFromBorderXstr = MultiplyChar(' ', offsetFromBorderX);
+            String borderHorizontal = MultiplyChar('━', borderWidth);
+            int ID = 0;
+            Console.WriteLine("┏" + borderHorizontal + "┓");
+            foreach (Person person in this.data) {
+                Console.WriteLine("┣" + "━━━━━━━━━━━━━━━━━━━━━━" + ID + "━━━━━━━━━━━━━━━━━━━━━━" + "┫");
+                Console.WriteLine("┃" + offsetFromBorderXstr + ("Name: " + person.Name.PadRight(borderWidth)).Substring(0, borderWidth - 2) + "┃");
+                Console.WriteLine("┃" + offsetFromBorderXstr + ("Address: " + person.Address.PadRight(borderWidth)).Substring(0, borderWidth - 2) + "┃");
+                Console.WriteLine("┃" + offsetFromBorderXstr + ("Birth Data: " + person.Birth_data.ToShortDateString().PadRight(100)).Substring(0, borderWidth - 2) + "┃");
+                Console.WriteLine("┃" + offsetFromBorderXstr + ("Phone Home: " + person.Phone_h.PadRight(borderWidth)).Substring(0, borderWidth - 2) + "┃");
+                Console.WriteLine("┃" + offsetFromBorderXstr + ("Phone Work: " + person.Phone_w.PadRight(borderWidth)).Substring(0, borderWidth - 2) + "┃");
+                Console.WriteLine("┃" + offsetFromBorderXstr + ("Email: " + person.Email.PadRight(borderWidth)).Substring(0, borderWidth - 2) + "┃");
+                Console.WriteLine("┃" + offsetFromBorderXstr + ("Color: " + person.Color.PadRight(borderWidth)).Substring(0, borderWidth - 2) + "┃");
+                Console.WriteLine("┃" + offsetFromBorderXstr + ("Height: " + (person.Height.ToString() + "cm").PadRight(borderWidth)).Substring(0, borderWidth - 2) + "┃");
+                Console.WriteLine("┃" + offsetFromBorderXstr + ("Weight: " + (person.Weight.ToString() + "kg").PadRight(borderWidth)).Substring(0, borderWidth - 2) + "┃");
+                Console.WriteLine("┃" + offsetFromBorderXstr + ("Blood Type: " + person.Blood.PadRight(borderWidth)).Substring(0, borderWidth - 2) + "┃");
+                Console.WriteLine("┃" + offsetFromBorderXstr + ("Eye Color: " + person.Eye.PadRight(borderWidth)).Substring(0, borderWidth - 2) + "┃");
+                Console.WriteLine("┃" + offsetFromBorderXstr + ("Hair Type: " + person.Hair.PadRight(borderWidth)).Substring(0, borderWidth - 2) + "┃");
+                Console.WriteLine("┣" + borderHorizontal + "┫");
+                ID++;
             }
             Console.CursorTop--;
             Console.WriteLine("┗" + borderHorizontal + "┛");
