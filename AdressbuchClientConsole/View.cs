@@ -164,7 +164,7 @@ namespace Addressbook {
             Console.WriteLine("┃" + offsetFromBorderXstr + ("Blood Type: ")); person.Blood = Console.ReadLine(); Console.WriteLine(person.Blood.PadRight(borderWidth).Substring(0, borderWidth - 2) + "┃");
             Console.WriteLine("┃" + offsetFromBorderXstr + ("Eye Color: ")); person.Eye = Console.ReadLine(); Console.WriteLine(person.Eye.PadRight(borderWidth).Substring(0, borderWidth - 2) + "┃");
             Console.WriteLine("┃" + offsetFromBorderXstr + ("Hair Type: ")); person.Hair = Console.ReadLine(); Console.WriteLine(person.Hair.PadRight(borderWidth).Substring(0, borderWidth - 2) + "┃");
-            Console.WriteLine("└" + borderHorizontal + "┘");
+            Console.WriteLine("┗" + borderHorizontal + "┛");
         }
 
         /// <summary>
