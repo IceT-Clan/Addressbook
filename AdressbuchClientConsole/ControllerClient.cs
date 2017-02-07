@@ -47,6 +47,10 @@ namespace Addressbook {
                         GetWholeAddressbook();
                         Console.ReadKey();
                         break;
+                    case "3":
+                        GetWholeAddressbook();
+                        Console.ReadKey();
+                        break;
                     case "9":
                         notExit = true;
                         break;

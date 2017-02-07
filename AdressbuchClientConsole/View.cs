@@ -108,10 +108,11 @@ namespace Addressbook {
             Console.WriteLine(offsetMenuXstr + "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
             Console.WriteLine(offsetMenuXstr + "┃      [1] - Search Person          ┃");
             Console.WriteLine(offsetMenuXstr + "┃      [2] - Load Complete A.B      ┃");
-            Console.WriteLine(offsetMenuXstr + "┃      [3] - Modify Person          ┃");
-            Console.WriteLine(offsetMenuXstr + "┃      [4] - Delete Person          ┃");
-            Console.WriteLine(offsetMenuXstr + "┃      [5] - Delete Person IDs      ┃");
-            Console.WriteLine(offsetMenuXstr + "┃      [6] - Delete AdressBook      ┃");
+            Console.WriteLine(offsetMenuXstr + "┃      [3] - Add Person             ┃");
+            Console.WriteLine(offsetMenuXstr + "┃      [4] - Modify Person          ┃");
+            Console.WriteLine(offsetMenuXstr + "┃      [5] - Delete Person          ┃");
+            Console.WriteLine(offsetMenuXstr + "┃      [6] - Delete Person IDs      ┃");
+            Console.WriteLine(offsetMenuXstr + "┃      [7] - Delete AdressBook      ┃");
             Console.WriteLine(offsetMenuXstr + "┃      [9] - EXIT                   ┃");
             if (Debugger.IsAttached)
                 Console.WriteLine(offsetMenuXstr + "┃     [10] - Debug View             ┃");
@@ -164,7 +165,7 @@ namespace Addressbook {
             Console.WriteLine("┃" + offsetFromBorderXstr + ("Blood Type: ")); person.Blood = Console.ReadLine(); Console.WriteLine(person.Blood.PadRight(borderWidth).Substring(0, borderWidth - 2) + "┃");
             Console.WriteLine("┃" + offsetFromBorderXstr + ("Eye Color: ")); person.Eye = Console.ReadLine(); Console.WriteLine(person.Eye.PadRight(borderWidth).Substring(0, borderWidth - 2) + "┃");
             Console.WriteLine("┃" + offsetFromBorderXstr + ("Hair Type: ")); person.Hair = Console.ReadLine(); Console.WriteLine(person.Hair.PadRight(borderWidth).Substring(0, borderWidth - 2) + "┃");
-            Console.WriteLine("└" + borderHorizontal + "┘");
+            Console.WriteLine("┗" + borderHorizontal + "┛");
         }
 
         /// <summary>
