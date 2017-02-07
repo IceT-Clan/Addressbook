@@ -37,7 +37,7 @@ namespace Addressbook {
             ReadAddressbook();
         }
 
-        ~Model() => WriteAddressBook();
+        ~Model() { WriteAddressBook(); }
 
         public List<Person> Search(String pattern, SearchType searchType = SearchType.FIXED_STRING) {
             List<Person> results = new List<Person>();
