@@ -119,9 +119,7 @@ namespace Addressbook {
 
         }
 
-        private void AddNewEntry(ClientSocket clientSocket) {
-
-        }
+        private void AddNewEntry(ClientSocket clientSocket) => this.model.AddPerson(new Person(clientSocket.ReadLine()));
 
         private void RemEntry(ClientSocket clientSocket) {
 

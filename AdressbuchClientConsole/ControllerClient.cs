@@ -78,6 +78,14 @@ namespace Addressbook {
 
         private void AddPerson() {
             Person person = this.view.Add_Entry();
+            this.client.Write((int)ServerCommand.AddPerson);
+            if (this.client.Read() != (int)ServerStatus.Online) return;
+
+            this.client.Write(person.ToString());
+            this.client.Close();
+
+            this.view.Data = new List<Person> { person };
+            this.view.Refresh(ViewMode.SingleEntry);
         }
 
         private void SearchPerson() {
