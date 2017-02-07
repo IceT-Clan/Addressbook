@@ -88,9 +88,29 @@ namespace Addressbook {
             this.view.Refresh(ViewMode.SingleEntry);
         }
 
+        private void Rem_Person() {
+            Console.Write("$ Search> ");
+            string pattern = Console.ReadLine();
+
+            this.client = new ClientSocket(this.host, this.port);
+            this.client.Connect();
+            this.client.Write((int)ServerCommand.FindPersons);
+            this.client.Write(pattern);
+            int entryCount = this.client.Read();
+            Console.WriteLine("found {0} entries", entryCount);
+            if (entryCount > 0) {
+                List<Person> result = new List<Person>();
+                for (int i = 0; i < entryCount; i++) result.Add(new Person(this.client.ReadLine(), this.seperator));
+                this.view.Data = result;
+                this.view.Refresh(ViewMode.EntriesID);
+                Console.Write("$ ID> ");
+                this.client.Write(Console.ReadLine());
+            }
+        }
+
         private void SearchPerson() {
             // Suchbegriff abfragen
-            Console.Write("Search> ");
+            Console.Write("$ Search> ");
             string pattern = Console.ReadLine();
 
 

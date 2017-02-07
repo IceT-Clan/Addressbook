@@ -116,13 +116,22 @@ namespace Addressbook {
             clientSocket.Write((int)ServerStatus.Online);
             clientSocket.Write(seperator);
             clientSocket.Write(this.model.GetAllEntries().Count);
-
         }
 
         private void AddNewEntry(ClientSocket clientSocket) => this.model.AddPerson(new Person(clientSocket.ReadLine()));
 
         private void RemEntry(ClientSocket clientSocket) {
-
+            string pattern = clientSocket.ReadLine();
+            List<Person> results = this.model.Search(pattern);
+            clientSocket.Write(results.Count);
+            if (results.Count > 0) {
+                foreach (Person person in results) {
+                    string data = person.ToString();
+                    Console.WriteLine(data);
+                    clientSocket.Write(data + "\n");
+                }
+            }
+            this.model.RemovePerson(results[clientSocket.Read()]);            
         }
     }
 }
