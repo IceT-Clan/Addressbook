@@ -51,6 +51,15 @@ namespace Addressbook {
                         AddPerson();
                         Console.ReadKey();
                         break;
+                    case "4":
+                        //ModifyPerson();
+                        break;
+                    case "5":
+                        RemovePerson();
+                        break;
+                    case "6":
+                        RemoveAddressbook();
+                        break;
                     case "9":
                         notExit = false;
                         break;
@@ -97,7 +106,7 @@ namespace Addressbook {
             Console.Write("$ Search> ");
             string pattern = Console.ReadLine();
 
-            this.client.Write(pattern);
+            this.client.WriteLine(pattern);
 
             int entryCount = this.client.Read();
 
@@ -109,6 +118,14 @@ namespace Addressbook {
             this.view.Refresh(ViewMode.EntriesID);
             Console.Write("$ ID> ");
             this.client.Write(Console.ReadLine());
+        }
+
+        private void ModifyPerson() {
+
+        }
+
+        private void RemoveAddressbook() {
+
         }
 
         private void SearchPerson() {
