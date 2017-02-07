@@ -93,6 +93,7 @@ namespace Addressbook {
         }
 
         private void GetAllEntries(ClientSocket clientSocket) {
+            Log("Sending all entries");
             List<Person> persons = this.model.GetAllEntries();
             Char seperator = ';';
 
@@ -107,7 +108,7 @@ namespace Addressbook {
         }
 
         private void SendServerInformation(ClientSocket clientSocket) {
-
+            Log("Sending server information");
             Char seperator = ';';
             clientSocket.Write((int)ServerStatus.Online);
             clientSocket.Write(seperator);
