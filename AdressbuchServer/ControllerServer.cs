@@ -12,7 +12,7 @@ namespace Addressbook {
     class ControllerServer {
         private Model model;
         private ServerSocket server;
-        private Char seperator;
+        private const Char seperator = ',';
 
         public ControllerServer(int port, string addressbook) {
             this.model = new Model(addressbook);
@@ -33,13 +33,6 @@ namespace Addressbook {
                 Console.CursorTop--;
                 Console.WriteLine("Connection established");
 
-
-                // Der folgende Teil würde in einen separaten Thread ausgelagert,
-                // um den Server wieder für neue Verbindungen zu öffnen
-                // Dieser Thread würde den Client-Socket als Parameter
-                // für die weitere Kommnikation erhalten
-
-                // Client-Socket liest Kommando vom Client
                 ServerCommand command = (ServerCommand)client.Read();
 
                 // Kommando wird ausgewertet
