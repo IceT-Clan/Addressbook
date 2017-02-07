@@ -10,12 +10,15 @@ namespace Sockets {
         private int port;
         private IPAddress host;
         private IPEndPoint endPoint;
+        private Encoding encoding = Encoding.UTF8;
 
         public ClientSocket(string host, int port) {
             //this.socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             this.socket = new Socket(SocketType.Stream, ProtocolType.Tcp);
             this.port = port;
-            this.host = Dns.GetHostEntry(host).AddressList[0];
+            if(!IPAddress.TryParse(host, out this.host)) {
+                this.host = Dns.GetHostEntry(host).AddressList[0];
+            }
             this.endPoint = new IPEndPoint (this.host,this.port);
         }
 
@@ -34,37 +37,37 @@ namespace Sockets {
             return true;
         }
 
-        public int DataAvailable() => this.socket.Available;
+        public Int32 DataAvailable() => this.socket.Available;
 
-        public void Write(int b) {
-            byte[] msg = new byte[1];
-            msg[0] = (byte)b;
+        public void Write(Int32 b) {
+            Byte[] msg = new Byte[1];
+            msg[0] = (Byte)b;
             this.socket.Send(msg);
         }
 
-        public void Write(string str) => this.socket.Send(Encoding.Unicode.GetBytes(str));
+        public void Write(string str) => this.socket.Send(this.encoding.GetBytes(str));
 
-        public char Read() {
-            byte[] rcvbuffer = new byte[1];
+        public Char Read() {
+            Byte[] rcvbuffer = new Byte[1];
             this.socket.Receive(rcvbuffer);
-            return (char)rcvbuffer[0];
+            return (Char)rcvbuffer[0];
         }
 
-        public char Read(byte[] b, int len) => (char)this.socket.Receive(b, len, SocketFlags.None);
+        public Char Read(Byte[] b, Int32 len) => (Char)this.socket.Receive(b, len, SocketFlags.None);
 
         /// <summary>
         /// Receive bytes from server until newline
         /// </summary>
         /// <returns>String with bytes from server (without newline)</returns>
-        public string ReadLine() {
-            string rcv = "";
-            byte[] rcvbuffer = new byte[1];
+        public String ReadLine() {
+            String rcv = "";
+            Byte[] rcvbuffer = new Byte[1];
             rcvbuffer[0] = 0;
 
             while (rcvbuffer[0] != '\n') {
-                socket.Receive(rcvbuffer);
-                System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
-                rcv += Encoding.Unicode.GetString(rcvbuffer);
+                this.socket.Receive(rcvbuffer);
+                ASCIIEncoding enc = new ASCIIEncoding();
+                rcv += this.encoding.GetString(rcvbuffer);
             }
             //return recv.Trim('\0');
 
