@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using People;
-using System.Diagnostics;
 
 namespace Addressbook {
     enum SearchType {
@@ -18,6 +17,15 @@ namespace Addressbook {
     class Model {
         private string path;
         private List<Person> persons;
+
+        public List<Person> Persons {
+            get { return this.persons; }
+            set { this.persons = value; }
+        }
+
+        public void AddPerson(Person person) => this.persons.Add(person);
+        public void RemovePerson(Person person) => this.persons.RemoveAll(x => x.ToString() == person.ToString());
+        public void AddPersonList(List<Person> persons) => this.persons.AddRange(persons);
 
         public Model(string path) {
             this.persons = new List<Person>();
@@ -62,6 +70,23 @@ namespace Addressbook {
             }
 
             return result;
+        }
+
+        private void WriteAddressBook() {
+            Console.WriteLine("Saving Addressbook...");
+            List<Person> toWrite = new List<Person>();
+            DateTime startTime = DateTime.Now;
+            Int32 oldLineCount = 0;
+
+            foreach (String line in File.ReadAllLines(this.path)) {
+                oldLineCount++;
+                Person person = new Person(line);
+                if (this.persons.Contains(person)) {
+                    toWrite.Add(person);
+                }
+            }
+            Console.WriteLine()
+
         }
 
         public List<Person> GetAllEntries() => this.persons;
