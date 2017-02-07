@@ -14,9 +14,11 @@ namespace Addressbook {
             this.server = new ServerSocket(port);
         }
 
+        private void Log(params object[] args) => Console.Write(String.Format("[{0}] {1}", DateTime.Now.ToShortTimeString(), args));
+
         public void Start() {
             bool hasNotStopped = true;
-            Console.WriteLine("Server gestartet!");
+            Console.WriteLine("Server started");
 
             // Server kann nicht gestoppt werden
             while (hasNotStopped) {
@@ -26,7 +28,7 @@ namespace Addressbook {
                 ClientSocket client = new ClientSocket(this.server.Accept());
                 Console.CursorTop--;
                 Console.WriteLine("Connection established");
-                
+
 
                 // Der folgende Teil würde in einen separaten Thread ausgelagert,
                 // um den Server wieder für neue Verbindungen zu öffnen
@@ -37,24 +39,21 @@ namespace Addressbook {
                 ServerCommand command = (ServerCommand)client.Read();
 
                 // Kommando wird ausgewertet
+                Log(String.Format("Got Command {0}", command.ToString()));
                 switch (command) {
-                    case ServerCommand.NONE:
+                    case ServerCommand.None:
                         break;
-
-                    case ServerCommand.FINDPERSONS:
+                    case ServerCommand.FindPersons:
                         Search(client);
                         break;
-
-                    case ServerCommand.GETALLPERSONS:
+                    case ServerCommand.GetAllPersons:
                         GetAllEntries(client);
                         break;
-
-                    case ServerCommand.ADDPERSON:
+                    case ServerCommand.AddPerson:
                         AddNewEntry(client);
                         break;
-
-                    case ServerCommand.DELETEPERSON:
-                        RemEntry(client);   
+                    case ServerCommand.DeletePerson:
+                        RemEntry(client);
                         break;
                     case ServerCommand.GetServerInformation:
                         SendServerInformation(client);
@@ -65,9 +64,8 @@ namespace Addressbook {
 
                 client.Close();
                 client.Dispose();
-                Console.WriteLine("Verbindung geschlossen!");
-                Console.WriteLine("=======================");
-
+                Log("Connection closed");
+                Console.WriteLine("");
             } // Ende while
 
         }
@@ -102,7 +100,7 @@ namespace Addressbook {
 
             if (persons.Count > 0) {
                 foreach (Person person in persons) {
-                    string data = person.ToString(seperator); 
+                    string data = person.ToString(seperator);
                     clientSocket.Write(data + '\n');
                 }
             }
@@ -114,7 +112,7 @@ namespace Addressbook {
             clientSocket.Write((int)ServerStatus.Online);
             clientSocket.Write(seperator);
             clientSocket.Write(this.model.GetAllEntries().Count);
-            
+
         }
 
         private void AddNewEntry(ClientSocket clientSocket) {
