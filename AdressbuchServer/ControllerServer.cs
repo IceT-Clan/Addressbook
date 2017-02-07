@@ -5,6 +5,10 @@ using People;
 using Commands;
 
 namespace Addressbook {
+    class Log {
+        public static void Write(String arg) => Console.Write(String.Format("[{0}] {1}", DateTime.Now.ToShortTimeString(), arg));
+    }
+
     class ControllerServer {
         private Model model;
         private ServerSocket server;
@@ -14,7 +18,6 @@ namespace Addressbook {
             this.server = new ServerSocket(port);
         }
 
-        private void Log(String arg) => Console.Write(String.Format("[{0}] {1}", DateTime.Now.ToShortTimeString(), arg));
 
         public void Start() {
             bool hasNotStopped = true;
@@ -39,7 +42,7 @@ namespace Addressbook {
                 ServerCommand command = (ServerCommand)client.Read();
 
                 // Kommando wird ausgewertet
-                Log(String.Format("Got Command {0}", command.ToString()));
+                Log.Write(String.Format("Got Command {0}", command.ToString()));
                 switch (command) {
                     case ServerCommand.None:
                         break;
