@@ -6,7 +6,7 @@ using Commands;
 
 namespace Addressbook {
     class Log {
-        public static void Write(String arg) => Console.Write(String.Format("[{0}] {1}", DateTime.Now.ToShortTimeString(), arg));
+        public static void Write(String arg) => Console.WriteLine(String.Format("[{0}] {1}", DateTime.Now.ToShortTimeString(), arg));
     }
 
     class ControllerServer {
@@ -76,6 +76,7 @@ namespace Addressbook {
         private void Search(ClientSocket clientSocket) {
             // Lese Suchstring vom Client
             string pattern = clientSocket.ReadLine();
+            Log.Write(String.Format("Got pattern {0}", pattern));
 
             // Speichere die Ergebnisse in einer Liste
             List<Person> results = this.model.Search(pattern);
