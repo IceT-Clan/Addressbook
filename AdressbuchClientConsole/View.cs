@@ -145,27 +145,27 @@ namespace Addressbook {
             Console.WriteLine("┗" + borderHorizontal + "┛");
         }
 
-       /* private void Add_Entry() {
+        private void Add_Entry() {
             const Int32 offsetFromBorderX = 2;
             const Int32 borderWidth = 54;
             String offsetFromBorderXstr = MultiplyChar(' ', offsetFromBorderX);
             String borderHorizontal = MultiplyChar('━', borderWidth);
             Person person = new Person();
             Console.WriteLine("┏" + "━━━━━━━━━━━━━━━━━━━━━━New Entry━━━━━━━━━━━━━━━━━━━━━━" + "┓");
-            Console.WriteLine("┃" + offsetFromBorderXstr + ("Name: ");  Console.Read(person.Name); Console.WriteLine("┃");
-            Console.WriteLine("┃" + offsetFromBorderXstr + ("Address: " + person.Address.PadRight(borderWidth)).Substring(0, borderWidth - 2) + "┃");
-            Console.WriteLine("┃" + offsetFromBorderXstr + ("Birth Data: " + person.Birth_data.ToShortDateString().PadRight(100)).Substring(0, borderWidth - 2) + "┃");
-            Console.WriteLine("┃" + offsetFromBorderXstr + ("Phone Home: " + person.Phone_h.PadRight(borderWidth)).Substring(0, borderWidth - 2) + "┃");
-            Console.WriteLine("┃" + offsetFromBorderXstr + ("Phone Work: " + person.Phone_w.PadRight(borderWidth)).Substring(0, borderWidth - 2) + "┃");
-            Console.WriteLine("┃" + offsetFromBorderXstr + ("Email: " + person.Email.PadRight(borderWidth)).Substring(0, borderWidth - 2) + "┃");
-            Console.WriteLine("┃" + offsetFromBorderXstr + ("Color: " + person.Color.PadRight(borderWidth)).Substring(0, borderWidth - 2) + "┃");
-            Console.WriteLine("┃" + offsetFromBorderXstr + ("Height: " + (person.Height.ToString() + "cm").PadRight(borderWidth)).Substring(0, borderWidth - 2) + "┃");
-            Console.WriteLine("┃" + offsetFromBorderXstr + ("Weight: " + (person.Weight.ToString() + "kg").PadRight(borderWidth)).Substring(0, borderWidth - 2) + "┃");
-            Console.WriteLine("┃" + offsetFromBorderXstr + ("Blood Type: " + person.Blood.PadRight(borderWidth)).Substring(0, borderWidth - 2) + "┃");
-            Console.WriteLine("┃" + offsetFromBorderXstr + ("Eye Color: " + person.Eye.PadRight(borderWidth)).Substring(0, borderWidth - 2) + "┃");
-            Console.WriteLine("┃" + offsetFromBorderXstr + ("Hair Type: " + person.Hair.PadRight(borderWidth)).Substring(0, borderWidth - 2) + "┃");
-            Console.WriteLine("┣" + borderHorizontal + "┫");
-        }*/
+            Console.WriteLine("┃" + offsetFromBorderXstr + "Name: "); person.Name = Console.ReadLine(); Console.WriteLine(person.Name.PadRight(borderWidth).Substring(0, borderWidth - 2) + "┃");
+            Console.WriteLine("┃" + offsetFromBorderXstr + ("Address: ")); person.Address = Console.ReadLine();  Console.WriteLine(person.Address.PadRight(borderWidth).Substring(0, borderWidth - 2) + "┃");
+            //Console.WriteLine("┃" + offsetFromBorderXstr + ("Birth Data: ")); person.Birth_data = Console.ReadLine();  + person.Birth_data.ToShortDateString().PadRight(100)).Substring(0, borderWidth - 2) + "┃");
+            Console.WriteLine("┃" + offsetFromBorderXstr + ("Phone Home: ")); person.Phone_h = Console.ReadLine(); Console.WriteLine(person.Phone_h.PadRight(borderWidth).Substring(0, borderWidth - 2) + "┃");
+            Console.WriteLine("┃" + offsetFromBorderXstr + ("Phone Work: ")); person.Phone_w = Console.ReadLine(); Console.WriteLine(person.Phone_w.PadRight(borderWidth).Substring(0, borderWidth - 2) + "┃");
+            Console.WriteLine("┃" + offsetFromBorderXstr + ("Email: ")); person.Email = Console.ReadLine(); Console.WriteLine(person.Email.PadRight(borderWidth).Substring(0, borderWidth - 2) + "┃");
+            Console.WriteLine("┃" + offsetFromBorderXstr + ("Color: ")); person.Color = Console.ReadLine(); Console.WriteLine(person.Color.PadRight(borderWidth).Substring(0, borderWidth - 2) + "┃");
+            Console.WriteLine("┃" + offsetFromBorderXstr + ("Height: ")); person.Height = Console.Read(); Console.WriteLine((person.Height.ToString() + "cm").PadRight(borderWidth).Substring(0, borderWidth - 2) + "┃");
+            Console.WriteLine("┃" + offsetFromBorderXstr + ("Weight: ")); person.Weight = Console.Read(); Console.WriteLine((person.Weight.ToString() + "kg").PadRight(borderWidth).Substring(0, borderWidth - 2) + "┃");
+            Console.WriteLine("┃" + offsetFromBorderXstr + ("Blood Type: ")); person.Blood = Console.ReadLine(); Console.WriteLine(person.Blood.PadRight(borderWidth).Substring(0, borderWidth - 2) + "┃");
+            Console.WriteLine("┃" + offsetFromBorderXstr + ("Eye Color: ")); person.Eye = Console.ReadLine(); Console.WriteLine(person.Eye.PadRight(borderWidth).Substring(0, borderWidth - 2) + "┃");
+            Console.WriteLine("┃" + offsetFromBorderXstr + ("Hair Type: ")); person.Hair = Console.ReadLine(); Console.WriteLine(person.Hair.PadRight(borderWidth).Substring(0, borderWidth - 2) + "┃");
+            Console.WriteLine("└" + borderHorizontal + "┘");
+        }
 
         /// <summary>
         /// Display Title
