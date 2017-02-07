@@ -13,7 +13,7 @@ Platforms:
 
 
 # Description
-Generate a addressbook filled with fake indentities. Identities are pulled from the [namefake.com](http://namefake.com) [API](http://namefake.com/api).
+Generate a addressbook filled with fake indentities. Identities get pulled from the [namefake.com](http://namefake.com) [API](http://namefake.com/api).
 
 # Usage
 ```
@@ -38,4 +38,4 @@ optional arguments:
 ```
 
 # Future
-This script needs a lot of rework and can be opimized.
+This script needs a lot of rework and can further opimized.
