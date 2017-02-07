@@ -12,6 +12,7 @@ namespace Addressbook {
     class ControllerServer {
         private Model model;
         private ServerSocket server;
+        private Char seperator;
 
         public ControllerServer(int port, string addressbook) {
             this.model = new Model(addressbook);
@@ -87,7 +88,7 @@ namespace Addressbook {
             // Sende nun die Personendaten
             if (results.Count > 0) {
                 foreach (Person person in results) {
-                    string data = person.ToString();
+                    string data = person.ToString(this.seperator);
 
                     // Testausgabe
                     Console.WriteLine(data);
@@ -99,13 +100,12 @@ namespace Addressbook {
         private void GetAllEntries(ClientSocket clientSocket) {
             Log.Write("Sending all entries");
             List<Person> persons = this.model.GetAllEntries();
-            Char seperator = ';';
 
             clientSocket.Write(persons.Count);
 
             if (persons.Count > 0) {
                 foreach (Person person in persons) {
-                    string data = person.ToString(seperator);
+                    string data = person.ToString(this.seperator);
                     clientSocket.Write(data + '\n');
                 }
             }
@@ -113,9 +113,8 @@ namespace Addressbook {
 
         private void SendServerInformation(ClientSocket clientSocket) {
             Log.Write("Sending server information");
-            Char seperator = ';';
             clientSocket.Write((int)ServerStatus.Online);
-            clientSocket.Write(seperator);
+            clientSocket.Write(this.seperator);
             clientSocket.Write(this.model.GetAllEntries().Count);
         }
 
