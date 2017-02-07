@@ -85,30 +85,15 @@ namespace Addressbook {
             // Sende Client die Anzahl der gefundenen Personen
             clientSocket.Write(results.Count);
 
-            // Sende nun die Personendaten
-            if (results.Count > 0) {
-                foreach (Person person in results) {
-                    string data = person.ToString(this.seperator);
-
-                    // Testausgabe
-                    Console.WriteLine(data);
-                    clientSocket.Write(data + "\n");
-                }
-            }
+            results.ForEach(person => clientSocket.WriteLine(person.ToString(this.seperator)));
         }
 
         private void GetAllEntries(ClientSocket clientSocket) {
             Log.Write("Sending all entries");
-            List<Person> persons = this.model.GetAllEntries();
 
-            clientSocket.Write(persons.Count);
+            clientSocket.Write(this.model.GetAllEntries().Count);
 
-            if (persons.Count > 0) {
-                foreach (Person person in persons) {
-                    string data = person.ToString(this.seperator);
-                    clientSocket.Write(data + '\n');
-                }
-            }
+            this.model.GetAllEntries().ForEach(person => clientSocket.WriteLine(person.ToString(this.seperator)));
         }
 
         private void SendServerInformation(ClientSocket clientSocket) {
@@ -123,14 +108,11 @@ namespace Addressbook {
         private void RemEntry(ClientSocket clientSocket) {
             string pattern = clientSocket.ReadLine();
             List<Person> results = this.model.Search(pattern);
-            clientSocket.Write(results.Count);
-            if (results.Count > 0) {
-                foreach (Person person in results) {
-                    string data = person.ToString();
-                    Console.WriteLine(data);
-                    clientSocket.Write(data + "\n");
-                }
-            }
+
+            clientSocket.WriteLine(results.Count.ToString());
+
+            results.ForEach(person => clientSocket.WriteLine(person.ToString(this.seperator)));
+
             this.model.RemovePerson(results[clientSocket.Read()]);            
         }
     }
