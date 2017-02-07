@@ -215,7 +215,7 @@ namespace People {
             return formatted;
         }
 
-        public IReadOnlyList<Object> ToList() => new List<Object> {
+        public List<Object> ToList() => new List<Object> {
                 this.name,
                 this.address,
                 this.birth_data,
