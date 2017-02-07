@@ -16,6 +16,7 @@ namespace People {
         private String blood;
         private String eye;
         private String hair;
+        public const String dateFormat = "yyyy-MM-dd";
 
         public String Name {
             get { return this.name; }
@@ -165,7 +166,7 @@ namespace People {
                     this.phone_h = entries[3];
                     goto case 3;
                 case 3:
-                    DateTime.TryParseExact(entries[2], "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out this.birth_data);
+                    DateTime.TryParseExact(entries[2], dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out this.birth_data);
                     // FIXME: ^ always returns 1
                     goto case 2;
                 case 2:
@@ -183,7 +184,7 @@ namespace People {
             String formatted = "";
             formatted += "Name: " + this.name + " \n";
             formatted += "Address: " + this.address + " \n";
-            formatted += "Birth Data: " + this.birth_data.ToShortDateString() + " \n";
+            formatted += "Birth Data: " + this.birth_data.ToString(dateFormat) + " \n";
             formatted += "Phone Home: " + this.phone_h + " \n";
             formatted += "Phone Work: " + this.phone_w + " \n";
             formatted += "Email: " + this.email + " \n";
@@ -201,7 +202,7 @@ namespace People {
             String formatted = "";
             formatted += Surround(this.name) + seperator;
             formatted += Surround(this.address) + seperator;
-            formatted += Surround(this.birth_data.ToShortDateString()) + seperator;
+            formatted += Surround(this.birth_data.ToString(dateFormat)) + seperator;
             formatted += Surround(this.phone_h) + seperator;
             formatted += Surround(this.phone_w) + seperator;
             formatted += Surround(this.email) + seperator;
