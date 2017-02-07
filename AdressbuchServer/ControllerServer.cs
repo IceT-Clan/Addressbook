@@ -67,7 +67,7 @@ namespace Addressbook {
 
                 client.Close();
                 client.Dispose();
-                Log("Connection closed");
+                Log.Write("Connection closed");
                 Console.WriteLine("");
             } // Ende while
 
@@ -96,7 +96,7 @@ namespace Addressbook {
         }
 
         private void GetAllEntries(ClientSocket clientSocket) {
-            Log("Sending all entries");
+            Log.Write("Sending all entries");
             List<Person> persons = this.model.GetAllEntries();
             Char seperator = ';';
 
@@ -111,7 +111,7 @@ namespace Addressbook {
         }
 
         private void SendServerInformation(ClientSocket clientSocket) {
-            Log("Sending server information");
+            Log.Write("Sending server information");
             Char seperator = ';';
             clientSocket.Write((int)ServerStatus.Online);
             clientSocket.Write(seperator);
@@ -119,9 +119,7 @@ namespace Addressbook {
 
         }
 
-        private void AddNewEntry(ClientSocket clientSocket) {
-
-        }
+        private void AddNewEntry(ClientSocket clientSocket) => this.model.AddPerson(new Person(clientSocket.ReadLine()));
 
         private void RemEntry(ClientSocket clientSocket) {
 
