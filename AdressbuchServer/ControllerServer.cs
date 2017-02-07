@@ -12,13 +12,12 @@ namespace Addressbook {
     class ControllerServer {
         private Model model;
         private ServerSocket server;
-        private const Char seperator = ',';
+        private Char seperator = ',';
 
         public ControllerServer(int port, string addressbook) {
             this.model = new Model(addressbook);
             this.server = new ServerSocket(port);
         }
-
 
         public void Start() {
             bool hasNotStopped = true;
