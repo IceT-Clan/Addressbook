@@ -52,7 +52,7 @@ namespace Addressbook {
                         Console.ReadKey();
                         break;
                     case "9":
-                        notExit = true;
+                        notExit = false;
                         break;
                     case "10":
                         this.view.Debug();
