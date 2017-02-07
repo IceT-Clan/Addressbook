@@ -11,7 +11,7 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Sockets", "Sockets\Sockets.
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "People", "People\People.shproj", "{6BC7F0CE-C23C-48A8-8EC9-DCC42F02F47F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{7D5C4653-CD47-4048-8C32-7FBC790B0B15}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "doc", "{7D5C4653-CD47-4048-8C32-7FBC790B0B15}"
 	ProjectSection(SolutionItems) = preProject
 		doc\Client_Main.pdf = doc\Client_Main.pdf
 		doc\Server_Main.pdf = doc\Server_Main.pdf
@@ -24,16 +24,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Python Scripts", "Python Sc
 		doc\Python Scripts\sort.md = doc\Python Scripts\sort.md
 	EndProjectSection
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Addressbook", "Addressbook\Addressbook.shproj", "{5F3FC259-1E12-4031-9469-816135475DD0}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Commands", "Commands\Commands.shproj", "{5F3FC259-1E12-4031-9469-816135475DD0}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Addressbook\Addressbook.projitems*{3ec2f2b9-d51c-45c5-b444-ce6a634bf33e}*SharedItemsImports = 4
 		People\People.projitems*{3ec2f2b9-d51c-45c5-b444-ce6a634bf33e}*SharedItemsImports = 4
 		Sockets\Sockets.projitems*{3ec2f2b9-d51c-45c5-b444-ce6a634bf33e}*SharedItemsImports = 4
-		Addressbook\Addressbook.projitems*{5f3fc259-1e12-4031-9469-816135475dd0}*SharedItemsImports = 13
+		Commands\Commands.projitems*{5f3fc259-1e12-4031-9469-816135475dd0}*SharedItemsImports = 13
 		People\People.projitems*{6bc7f0ce-c23c-48a8-8ec9-dcc42f02f47f}*SharedItemsImports = 13
-		Addressbook\Addressbook.projitems*{72f77623-46f7-4767-9905-5f5c38f9f2be}*SharedItemsImports = 4
+		Commands\Commands.projitems*{72f77623-46f7-4767-9905-5f5c38f9f2be}*SharedItemsImports = 4
 		People\People.projitems*{72f77623-46f7-4767-9905-5f5c38f9f2be}*SharedItemsImports = 4
 		Sockets\Sockets.projitems*{72f77623-46f7-4767-9905-5f5c38f9f2be}*SharedItemsImports = 4
 		Sockets\Sockets.projitems*{9bd56385-2fd7-48cb-9bf2-31bf43f1fd57}*SharedItemsImports = 13
