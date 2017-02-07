@@ -108,10 +108,11 @@ namespace Addressbook {
             Console.WriteLine(offsetMenuXstr + "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
             Console.WriteLine(offsetMenuXstr + "┃      [1] - Search Person          ┃");
             Console.WriteLine(offsetMenuXstr + "┃      [2] - Load Complete A.B      ┃");
-            Console.WriteLine(offsetMenuXstr + "┃      [3] - Modify Person          ┃");
-            Console.WriteLine(offsetMenuXstr + "┃      [4] - Delete Person          ┃");
-            Console.WriteLine(offsetMenuXstr + "┃      [5] - Delete Person IDs      ┃");
-            Console.WriteLine(offsetMenuXstr + "┃      [6] - Delete AdressBook      ┃");
+            Console.WriteLine(offsetMenuXstr + "┃      [3] - Add Person             ┃");
+            Console.WriteLine(offsetMenuXstr + "┃      [4] - Modify Person          ┃");
+            Console.WriteLine(offsetMenuXstr + "┃      [5] - Delete Person          ┃");
+            Console.WriteLine(offsetMenuXstr + "┃      [6] - Delete Person IDs      ┃");
+            Console.WriteLine(offsetMenuXstr + "┃      [7] - Delete AdressBook      ┃");
             Console.WriteLine(offsetMenuXstr + "┃      [9] - EXIT                   ┃");
             if (Debugger.IsAttached)
                 Console.WriteLine(offsetMenuXstr + "┃     [10] - Debug View             ┃");
