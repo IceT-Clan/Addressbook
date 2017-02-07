@@ -11,8 +11,8 @@ namespace People {
         private String phone_w;
         private String email;
         private String color;
-        private Int32 height;
-        private Int32 weight;
+        private Single height;
+        private Single weight;
         private String blood;
         private String eye;
         private String hair;
@@ -45,11 +45,11 @@ namespace People {
             get { return this.color; }
             set { this.color = value; }
         }
-        public Int32 Height {
+        public Single Height {
             get { return this.height; }
             set { this.height = value; }
         }
-        public Int32 Weight {
+        public Single Weight {
             get { return this.weight; }
             set { this.weight = value; }
         }
@@ -92,9 +92,7 @@ namespace People {
             this.hair = hair;
         }
 
-        public Person() {
-
-        }
+        public Person() { }
 
         public Person(Person person) {
             this.name = person.name;
@@ -127,6 +125,7 @@ namespace People {
                 }
                 currentEntry += character;
             }
+            entries.Add(currentEntry); // Add last entry
 
             switch (entries.Count) {
                 default:
@@ -141,14 +140,14 @@ namespace People {
                     goto case 9;
                 case 9:
                     try {
-                        this.weight = Convert.ToInt32(entries[8]);
+                        this.weight = Convert.ToSingle(entries[8]);
                     } catch (FormatException) {
                         this.weight = 0;
                     }
                     goto case 8;
                 case 8:
                     try {
-                        this.height = Convert.ToInt32(entries[7]);
+                        this.height = Convert.ToSingle(entries[7]);
                     } catch (FormatException) {
                         this.height = 0;
                     }
@@ -173,8 +172,6 @@ namespace People {
                     goto case 1;
                 case 1:
                     this.name = entries[0];
-                    goto case 0;
-                case 0:
                     break;
             }
         }
@@ -201,18 +198,18 @@ namespace People {
 
         public String ToString(Char seperator) {
             String formatted = "";
-            formatted += this.name + seperator;
-            formatted += this.address + seperator;
-            formatted += this.birth_data.ToShortDateString() + seperator;
-            formatted += this.phone_h + seperator;
-            formatted += this.phone_w + seperator;
-            formatted += this.email + seperator;
-            formatted += this.color + seperator;
-            formatted += this.height + seperator;
-            formatted += this.weight + seperator;
-            formatted += this.blood + seperator;
-            formatted += this.eye + seperator;
-            formatted += this.hair + seperator;
+            formatted += Surround(this.name) + seperator;
+            formatted += Surround(this.address) + seperator;
+            formatted += Surround(this.birth_data.ToShortDateString()) + seperator;
+            formatted += Surround(this.phone_h) + seperator;
+            formatted += Surround(this.phone_w) + seperator;
+            formatted += Surround(this.email) + seperator;
+            formatted += Surround(this.color) + seperator;
+            formatted += Surround(this.height.ToString()) + seperator;
+            formatted += Surround(this.weight.ToString()) + seperator;
+            formatted += Surround(this.blood) + seperator;
+            formatted += Surround(this.eye) + seperator;
+            formatted += Surround(this.hair) + seperator;
 
             return formatted;
         }
@@ -230,6 +227,10 @@ namespace People {
                 this.blood,
                 this.eye,
                 this.hair
-            };
+        };
+
+        private String SurroundString(String s, Char c1='(', Char c2=')') => c1 + s + c2;
+        private String Surround(String s, Char c = '"') => SurroundString(s, c);
+        private String SurroundString(String s, Char c='"') => c + s + c;
     }
 }
