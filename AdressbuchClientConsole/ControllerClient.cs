@@ -48,7 +48,7 @@ namespace Addressbook {
                         Console.ReadKey();
                         break;
                     case "3":
-                        GetWholeAddressbook();
+                        AddPerson();
                         Console.ReadKey();
                         break;
                     case "9":
@@ -74,6 +74,10 @@ namespace Addressbook {
             Console.WriteLine(String.Format("Server has {0} total entries", entries));
 
             this.seperator = seperator;
+        }
+
+        private void AddPerson() {
+            Person person = this.view.Add_Entry();
         }
 
         private void SearchPerson() {
