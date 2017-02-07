@@ -63,7 +63,7 @@ namespace Addressbook {
             this.client.Write((int)ServerCommand.GetServerInformation);
             if (this.client.Read() != (int)ServerStatus.Online) return;
 
-            Char seperator = this.client.Read();
+            Char seperator = (Char)this.client.Read();
             Int32 entries = this.client.Read();
 
             Console.WriteLine(String.Format("Server uses {0} as seperator", seperator));
