@@ -125,8 +125,8 @@ namespace Addressbook {
             const Int32 borderWidth = 54;
             String offsetFromBorderXstr = MultiplyChar(' ', offsetFromBorderX);
             String borderHorizontal = MultiplyChar('━', borderWidth);
+            Console.WriteLine("┏" + borderHorizontal + "┓");
             foreach (Person person in this.data) {
-                Console.WriteLine("┏" + borderHorizontal + "┓");
                 Console.WriteLine("┃" + offsetFromBorderXstr + ("Name: " + person.Name.PadRight(borderWidth)).Substring(0, borderWidth - 2) + "┃");
                 Console.WriteLine("┃" + offsetFromBorderXstr + ("Address: " + person.Address.PadRight(borderWidth)).Substring(0, borderWidth - 2) + "┃");
                 Console.WriteLine("┃" + offsetFromBorderXstr + ("Birth Data: " + person.Birth_data.ToShortDateString().PadRight(100)).Substring(0, borderWidth - 2) + "┃");
