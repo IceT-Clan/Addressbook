@@ -212,5 +212,26 @@ namespace Addressbook {
         /// <param name="factor">How often to repeat</param>
         /// <returns></returns>
         private String MultiplyChar(Char character, Int32 factor) => "".PadRight(factor, character);
+
+        public void Input_BirthData() {
+            const String text = "Birth Data: ";
+            String daystr;
+            String monthstr;
+            String yearstr;
+
+            Console.WriteLine("Birth Data: ");
+
+            daystr = Console.ReadLine().Substring(0, 2);
+
+            Console.CursorTop--;
+            Console.CursorLeft = text.Length + 2 + 1;
+
+            monthstr = Console.ReadLine().Substring(0, 2);
+
+            Console.CursorTop--;
+            Console.CursorLeft = text.Length + 2 + 2 + 1;
+
+            yearstr = Console.ReadLine().Substring(0, 4);
+        }
     }
 }
