@@ -74,8 +74,8 @@ namespace People {
                       String phone_w,
                       String email,
                       String color,
-                      Int32 height,
-                      Int32 weight,
+                      Single height,
+                      Single weight,
                       String blood,
                       String eye,
                       String hair) {
@@ -110,7 +110,7 @@ namespace People {
             this.hair = person.hair;
         }
 
-        public Person(String csvline, Char seperator = ',') {
+        public Person(String csvline, Char seperator=',') {
             List<String> entries = new List<string>();
             String currentEntry = null;
             Boolean inApostrophe = false;
@@ -232,7 +232,7 @@ namespace People {
         };
 
         private String SurroundString(String s, Char c1='(', Char c2=')') => c1 + s + c2;
-        private String Surround(String s, Char c = '"') => SurroundString(s, c);
+        private String Surround(String s, Char c='"') => SurroundString(s, c);
         private String SurroundString(String s, Char c='"') => c + s + c;
     }
 }
