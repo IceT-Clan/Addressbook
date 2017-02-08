@@ -97,6 +97,7 @@ namespace Addressbook {
 
             this.view.Data = new List<Person> { person };
             this.view.Refresh(ViewMode.SingleEntry);
+            this.client.Close();
         }
 
         private void RemovePerson() {
