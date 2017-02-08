@@ -3,13 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using People;
 using System.Text.RegularExpressions;
+using Commands;
 
-namespace Addressbook {
-    enum SearchType {
-        REGEX,
-        FIXED_STRING
-    }
-
+namespace Addressbook { 
     // Diese Klasse stellt das Datenmodell für das Adressbuch
     // und notwendige Methoden für die Datenverarbeitung
     // zur Verfügung

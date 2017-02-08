@@ -67,12 +67,16 @@ namespace Addressbook {
         }
 
         private void Search(ClientSocket clientSocket) {
+            // get pattern type
+            SearchType searchType = (SearchType)clientSocket.Read();
+
             // Lese Suchstring vom Client
             string pattern = clientSocket.ReadLine();
+
             Log.Write(String.Format("Searching for pattern {0}", pattern));
 
             // Speichere die Ergebnisse in einer Liste
-            List<Person> results = this.model.Search(pattern);
+            List<Person> results = this.model.Search(pattern, searchType);
 
             // Sende Client die Anzahl der gefundenen Personen
             clientSocket.Write(results.Count);

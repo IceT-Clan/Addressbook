@@ -133,13 +133,29 @@ namespace Addressbook {
         private void SearchPerson() {
             this.client = new ClientSocket(this.host, this.port);
             this.client.Connect();
+            SearchType searchType;
 
-            Console.Write("Search> ");
+            Console.Write("SeachType STRING|REGEX> ");
+            string searchTypestr = Console.ReadLine();
+            switch (searchTypestr.ToUpper()) {
+                default:
+                case "STRING":
+                    searchType = SearchType.FIXED_STRING;
+                    break;
+                case "REGEX":
+                    searchType = SearchType.REGEX;
+                    break;
+            }
+
+            Console.Write(String.Format("Using {0}", searchType.ToString()));
+
+            Console.Write("\nSearch> ");
             string pattern = Console.ReadLine();
 
             this.client.Write((int)ServerCommand.FindPersons);
 
             // search type
+            this.client.Write((int)searchType);
 
             // Suchstring senden
             this.client.WriteLine(pattern);

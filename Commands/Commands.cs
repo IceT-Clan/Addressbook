@@ -21,4 +21,9 @@
         Busy,
         Online
     }
+
+    enum SearchType {
+        REGEX,
+        FIXED_STRING
+    }
 }

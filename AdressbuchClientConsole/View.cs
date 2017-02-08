@@ -146,7 +146,7 @@ namespace Addressbook {
                 Console.WriteLine("│" + offsetFromBorderXstr + ("Hair Type: " + person.Hair.PadRight(borderWidth)).Substring(0, borderWidth - 2) + "│");
                 Console.WriteLine("┣" + borderHorizontal + "┫");
             }
-            Console.CursorTop--;
+            if (this.data.Capacity > 0) { Console.CursorTop--; } else Console.WriteLine("No entrys found");
             Console.WriteLine("└" + borderHorizontal + "┘");
         }
 
