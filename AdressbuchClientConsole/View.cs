@@ -32,6 +32,7 @@ namespace Addressbook {
         /// </summary>
         public void Refresh() {
             Console.OutputEncoding = Encoding.UTF8;
+            Console.InputEncoding = Encoding.UTF8;
             Console.Clear();
             switch (this.mode) {
                 case ViewMode.Title:
