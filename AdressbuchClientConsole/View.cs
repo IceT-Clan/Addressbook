@@ -171,7 +171,7 @@ namespace Addressbook {
                 Console.WriteLine("│" + offsetFromBorderXstr + ("Blood Type: " + person.Blood.PadRight(borderWidth)).Substring(0, borderWidth - 2) + "│");
                 Console.WriteLine("│" + offsetFromBorderXstr + ("Eye Color: " + person.Eye.PadRight(borderWidth)).Substring(0, borderWidth - 2) + "│");
                 Console.WriteLine("│" + offsetFromBorderXstr + ("Hair Type: " + person.Hair.PadRight(borderWidth)).Substring(0, borderWidth - 2) + "│");
-                Console.WriteLine("┣" + borderHorizontal + "┫");
+                Console.WriteLine("├" + borderHorizontal + "┤");
                 ID++;
             }
             Console.CursorTop--;
@@ -184,7 +184,7 @@ namespace Addressbook {
             String offsetFromBorderXstr = MultiplyChar(' ', offsetFromBorderX);
             String borderHorizontal = MultiplyChar('─', borderWidth);
             //Person person = new Person();
-            Console.WriteLine("┌" + "──────────────────────New Entry──────────────────────" + "┐");
+            Console.WriteLine("┌" + "───────────────────────New Entry──────────────────────" + "┐");
 
             Person person = new Person(
             Input_Entry("Name"),
@@ -209,7 +209,7 @@ namespace Addressbook {
             Int32 writeIndex = 1 + offsetFromBorderX + (name + ": ").Length;
             Console.Write("│" + MultiplyChar(' ', offsetFromBorderX) + name + ": ");
             Console.CursorLeft = writeIndex;
-            Console.Write(MultiplyChar(' ', borderWidth - Console.CursorLeft) + "│");
+            Console.Write(MultiplyChar(' ', 1 + borderWidth - Console.CursorLeft) + "│");
             Console.CursorLeft = writeIndex;
             return Console.ReadLine();
         }
@@ -260,27 +260,25 @@ namespace Addressbook {
         /// <returns></returns>
         private String MultiplyChar(Char character, Int32 factor) => "".PadRight(factor, character);
 
-        public DateTime Input_BirthData(Int32 offsetFromBorderX = 2, Int32 borderWidth=5) {
+        public DateTime Input_BirthData(Int32 offsetFromBorderX = 2, Int32 borderWidth=54) {
             const String text = "Birth Data: ";
-            Int32 writeIndex = 1 + offsetFromBorderX + (text + ": ").Length;
-            Console.Write("│" + MultiplyChar(' ', offsetFromBorderX) + text + ": ");
-            Console.CursorLeft = writeIndex;
-            Console.Write(MultiplyChar(' ', borderWidth - Console.CursorLeft) + "│");
+            Int32 writeIndex = 1 + offsetFromBorderX + text.Length;
+            Console.Write("│" + MultiplyChar(' ', offsetFromBorderX) + text);
+            Console.Write(MultiplyChar(' ', 1 + borderWidth - Console.CursorLeft) + "│");
             Console.CursorLeft = writeIndex;
             String daystr;
             String monthstr;
             String yearstr;
 
-
             daystr = Console.ReadLine().PadLeft(2, '0').Substring(0, 2);
 
             Console.CursorTop--;
-            Console.CursorLeft = text.Length + 2 + 1;
+            Console.CursorLeft = writeIndex + 2 + 1;
 
             monthstr = Console.ReadLine().PadLeft(2, '0').Substring(0, 2);
 
             Console.CursorTop--;
-            Console.CursorLeft = text.Length + 2 + 1 + 2 + 1;
+            Console.CursorLeft = writeIndex + 2 + 1 + 2 + 1;
 
             yearstr = Console.ReadLine().PadLeft(4, '0').Substring(0, 4);
 

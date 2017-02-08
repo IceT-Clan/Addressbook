@@ -86,11 +86,13 @@ namespace Addressbook {
         }
 
         private void AddPerson() {
+            this.client = new ClientSocket(this.host, this.port);
+            this.client.Connect();
+
             Person person = this.view.Add_Entry();
             this.client.Write((int)ServerCommand.AddPerson);
-            if (this.client.Read() != (int)ServerStatus.Online) return;
 
-            this.client.Write(person.ToString());
+            this.client.Write(person.ToString(this.seperator));
             this.client.Close();
 
             this.view.Data = new List<Person> { person };
