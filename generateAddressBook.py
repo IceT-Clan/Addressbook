@@ -97,7 +97,7 @@ ch.setFormatter(formatter)
 # add ch to logger
 logger.addHandler(ch)
 
-encoding = "utf-16"
+encoding = "utf-8"
 encoding_mode = "replace"
 if sys.stdout.encoding != encoding:
     sys.stdout = codecs.getwriter(encoding)(sys.stdout.buffer, encoding_mode)
